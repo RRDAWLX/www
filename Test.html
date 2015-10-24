@@ -3,15 +3,34 @@
 <head>
 <meta charset="utf-8">
 <title>Test</title>
+<style>
+* {margin: 0; padding: 0; border: 0;}
+html, body {width: 100%; height: 100%;}
+#position {position: absolute; top: 50%; left: 50%;}
+#content {position: relative; width: 400px; height: 200px; left: -50%; top: -50%; background-color: blue;}
+</style>
+
+<script src="jquery.min.js"></script>
 </head>
 
 <body>
+<div id="position">
+  <div id="content"></div>    
+</div>
+
 <script>
-var str = '';
-console.log(str);
-if(!!!str){
-	alert('true');
-}
+var divs = document.getElementsByTagName('div');
+console.log(divs);
+
+var div = document.createElement('div');
+div.id = 'custom';
+console.log(divs);
+
+document.body.appendChild(div);
+console.log(divs);
+
+divs = document.getElementsByTagName('div');
+console.log(divs);
 </script>
 </body>
 </html>
