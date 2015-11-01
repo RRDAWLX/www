@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>scrollIntoView()</title>
+<style>
+* {margin:0; padding:0; border:0;}
+#div1 {background:#000; width:50px; height:20px;}
+#div2 {height:1000px; margin-top:1000px; margin-bottom:1000px; background:#000;}
+</style>
+
+<script>
+window.onload = function(){
+	document.getElementById("div1").onclick = function(){
+		document.getElementById("div2").scrollIntoView(false);
+	};
+}
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Touch Event</title>
+</head>
+
+<body>
+
+<script>
+function handleStart(event){
+	this.startX = event.touches[0].clientX;
+	console.log("start: " + this.startX);
+	console.log("----------------------");
+}
+
+function handleMove(event){
+	this.offsetX = event.changedTouches[0].clientX - this.startX;
+	console.log(this.offsetX);
+	console.log("touches " + event.touches.length);
+	console.log("targetTouches " + event.targetTouches.length);
+	console.log("changedTouches " + event.changedTouches.length);
+}
+
+function handleEnd(event){
+	console.log("----------------------");
+	this.endX = event.changedTouches[0].clientX;
+	this.offsetX =this.endX - this.startX;
+	console.log(this.offsetX);
+	console.log("end: " + this.endX);
+}
+
+document.addEventListener("touchstart",handleStart, false);
+document.addEventListener("touchmove", handleMove, false);
+document.addEventListener("touchend", handleEnd, false);
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>图片延迟加载</title>
+</head>
+<style>
+* {margin:0; border:0; padding:0;}
+div {width:800px; height:280px; margin-bottom:200px;}
+</style>
+
+<body>
+<div class="imgContainer" data-hide="true"><img src="img/cat.jpg" data-src="img/01.jpg"/></div>
+<div class="imgContainer" data-hide="true"><img src="img/cat.jpg" data-src="img/02.jpg"/></div>
+<div class="imgContainer" data-hide="true"><img src="img/cat.jpg" data-src="img/03.jpg"/></div>
+<div class="imgContainer" data-hide="true"><img src="img/cat.jpg" data-src="img/04.jpg"/></div>
+<div class="imgContainer" data-hide="true"><img src="img/cat.jpg" data-src="img/05.jpg"/></div>
+
+<script>
+(function(){
+	//获取视口高度
+	var windowHeight = window.innerHeight;
+	
+	//获取body的高度
+	var bodyHeight = document.body.offsetHeight;
+	
+	//获取页面加载时的滚动高度
+	var initScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	
+	//获取图片包裹块
+	var imgContainers = document.getElementsByClassName("imgContainer");
+	
+	//页面加载时的显示高度
+	var showHeight = initScrollTop + windowHeight; 
+	console.log("showHeight = " + showHeight);  // 测试：提示页面加载时的显示高度
+	
+	var showPics = function(cons, h){
+		console.log("-----enter-----"); // 测试用
+		var len = cons.length;
+		var i;
+		for(i = 0; i < len; i++){
+			var conItem = cons.item(i);
+
+			//如果某一图片包裹块在视口中或其上方，则显示图片
+			if(conItem.offsetTop < h){
+				//如果图片包裹块中的图片还未加载，则加载图片
+				if(conItem.getAttribute("data-hide") == "true"){
+					console.log("show " + i);
+					//改为真实链接
+					var imgs = conItem.getElementsByTagName("img");
+					var iLen = imgs.length;
+					var j;
+					for(j = 0; j < iLen; j++){
+						var tSrc = imgs.item(j).getAttribute("data-src");
+						imgs.item(j).setAttribute("src", tSrc);
+					}
+					
+					conItem.setAttribute("data-hide", "false");
+					
+					
+					// 如果图片已全部加载，则移除滚动加载图片scrollToShow的监听
+					if(i == (len - 1)){
+						window.removeEventListener("scroll", scrollToShow, false);
+					}
+				}
+			}
+		}
+		console.log("-----leave-----");  // 测试用
+	};
+	
+	// 页面加载完毕，加载在视口及其上方的图片
+	showPics(imgContainers, showHeight);
+	
+	var scrollToShow = function(){
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		var h = scrollTop + windowHeight;
+		showPics(imgContainers, h);
+	};
+	
+	window.addEventListener("scroll", scrollToShow, false);
+}());
+</script>
+</body>
+</html>

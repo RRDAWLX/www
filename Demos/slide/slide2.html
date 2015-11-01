@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>slide1</title>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script>
+$(document).ready(function(e) {
+    var $wrapper = $('img');
+	var imgs = $wrapper.length;
+	for(i=0; i<imgs; i++){
+		$wrapper.eq(i).css('left',200*i+'px');
+	}
+	
+	function slidepic(imgblock){
+		var len = imgblock.length;
+		for(var i=0; i<len; i++){
+			imgblock.eq(i).animate({left:'-=200'}, function(){
+				if(parseInt($(this).css('left'))<0){
+					$(this).css('left','800px');
+				}
+			});
+			//if(parseInt(imgblock.eq(i).attr('left'))<0) imgblock.eq(i).css('left',800); //当<img>的left小于0时，将其设置为800px
+		}
+		setTimeout(slidepic(imgblock), 5000);
+	}
+	
+	/*function slidepic(imgblock) {
+        var container=document.getElementById("imgs");
+        var len = imgblock.length;
+        for (var i = 0; i < len; i++) {
+            imgblock.eq(i).animate({
+                left: '-=200'
+            },function(){
+                if(parseInt($(this).css("left"))<0)
+                {
+                    $(this).css("left",800+"px");
+                    container.appendChild(this);
+                }
+            });
+        }
+        setTimeout(slidepic(imgblock), 5000);
+    }*/
+	
+	/*$('img').hover(function(){
+		$('img').stop();
+	},function(){
+		slidepic($wrapper);
+	});*/
+	
+	slidepic($wrapper);
+});
+</script>
+<style>
+#container {width:600px; height:200px; margin:auto; overflow:hidden; position:relative;}
+#imgs {width:1000px; height:200px; position:relative}
+img {position:absolute;}
+</style>
+</head>
+
+<body>
+<div id="container">
+<div id="imgs">
+<img src="../img/image1.jpg" width="200px" height="200px"/><img src="../img/image2.jpg" width="200px" height="200px"/><img src="../img/image3.jpg" width="200px" height="200px"/><img src="../img/image4.jpg" width="200px" height="200px"/><img src="../img/image5.jpg" width="200px" height="200px"/>
+</div>
+</div>
+</body>
+</html>

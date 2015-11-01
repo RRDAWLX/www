@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>页面元素自动收缩display:flex</title>
+</head>
+
+<body>
+<div style="width:500px; height:300px; border:1px solid black; display:flex; flex-flow:row wrap;">
+  <div style="background-color:#F00; width:250px;"></div>
+  <div style="background-color:#0F0; width:250px;"></div>
+  <div style="background-color:#00F; width:250px;"></div>
+</div>
+
+<div style="width:500px; height:300px; border:1px solid black; display:flex; flex-flow:row wrap;">
+  <div style="background-color:#F00; flex:1;"></div>
+  <div style="background-color:#0F0; width:250px;"></div>
+  <div style="background-color:#00F; flex:2"></div>
+</div>
+</body>
+</html>

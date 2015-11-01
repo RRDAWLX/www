@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>动态定位</title>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<style>
+* {margin:0; padding:0; border:0;}
+#wrapper {width:960px; height:1000px; margin:auto;}
+#menu {width:960px; height:100px; background-color:#000;}
+#left {width:750px; height:400px; background-color:#999; float:left;}
+#right {width:200px; height:200px; background-color:red; float:right;}
+</style>
+</head>
+
+<body>
+<div id="wrapper">
+  <div id="menu"></div>
+  <div id="left"></div>
+  <div id="right"></div>
+</div>
+<script>
+$(document).ready(function(e) {
+    var offset = $('#right').offset();
+	var initTop = offset.top;
+	$('#right').css({position:'static', left:offset.left, top:initTop});
+	
+	function moveRight(){
+		var st = $(document).scrollTop()|| document.documentElement.scrollTop || document.body.scrollTop;
+		
+		if(st > parseFloat(initTop)){
+			$('#right').css({position:'fixed', top:0});
+		}else{
+			$('#right').css({position:'static', top:initTop});
+		}
+	}
+
+	var wrapperW = $('#wrapper').innerWidth();	
+	$(window).scroll(function(){
+		if($(window).innerWidth() >= wrapperW){
+			moveRight();
+		}
+	});
+	
+	$(window).resize(function(e) {
+        var dynamicleft = $('#left').offset().left + 760;
+		$('#right').css({left:dynamicleft});
+		
+		if($(window).innerWidth() < wrapperW){
+			$('#right').css({position:'static'});
+		}else{
+			moveRight();
+		}
+    });
+});
+
+/*	var mytop = 0,divH;
+	function moveright(){
+		var st = document.documentElement.scrollTop || document.body.scrollTop;
+		
+		if(st > 0){
+			if(st > parseFloat(divH)){ //向下滚动
+				$("#right").css({
+					position:"absolute",
+					top: st
+				});
+			}
+		}
+		if(st <= parseFloat(mytop)){ //向上滚动
+			$("#right").css({
+				position:"static",
+				top:mytop
+			});
+		}
+	}
+	$(document).ready(function(e){
+		divH = $("#right").height();
+		var offset = $("#right").offset();//获取联系我们模块的top值
+		mytop = offset.top;
+		$("#right").css({
+			position:"absolute",
+			zIndex:"100",
+			top:mytop,
+			left:offset.left
+		});
+		moveright();
+		$(window).scroll(function(){  
+			moveright();  
+		});  
+	});*/
+</script>
+</body>
+</html>

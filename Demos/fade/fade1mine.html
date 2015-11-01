@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+* {margin:0; padding:0; border:0;}
+div#focus {width:800px; height:280px; margin:auto; position:relative; overflow:hidden;}
+img {width:800px; height:280px; position:absolute; left:0; top:0;}
+div#btns {width:100%; height:20px; padding-bottom:10px; position:absolute; left:0; bottom:0; text-align:right;}
+span.btn {width:20px; height:20px; display:inline-block; margin-right:10px; border-radius:10px; background-color:#fff; opacity:0.4; cursor:pointer; text-align:center;}
+</style>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script>
+$(document).ready(function(e) {
+    var $img = $('img');
+	var len = $img.length;
+	var index = 0;
+	var auto;
+	
+	var btns ="<div id='btns'>";
+	for(var i=0; i<len; i++){
+		btns += "<span class='btn'>" + (i+1) + "</span>";
+	}
+	btns += "</div>";
+	$('#focus').append(btns);
+	
+	$btns = $('.btn');
+	$btns.eq(0).css('opacity',0.9);
+	$img.hide();
+	$img.eq(0).show();
+	
+	$('#focus').hover(function(){
+		clearInterval(auto);
+	},function(){
+		auto = setInterval(function(){
+			$img.eq(index).fadeOut(400);
+			index++;
+			if(index == len) index = 0;
+			$img.eq(index).fadeIn(400);
+			$btns.css('opacity',0.4).eq(index).css('opacity',0.9);
+		},2000);
+	}).trigger('mouseleave');
+	
+	$('span').click(function(e) {
+        $img.eq(index).fadeOut(400);
+		index = $(this).index();
+		$img.eq(index).fadeIn(400);
+		$btns.css('opacity',0.4).eq(index).css('opacity',0.9);
+    });
+});
+</script>
+</head>
+
+<body>
+<div id="focus">
+  <div id="imgs">
+    <img src="../img/01.jpg"/>
+    <img src="../img/02.jpg"/>
+    <img src="../img/03.jpg"/>
+    <img src="../img/04.jpg"/>
+    <img src="../img/05.jpg"/>
+  </div>
+</div>
+</body>
+</html>

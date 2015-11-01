@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<style>
+* {margin:0; padding:0; border:0;}
+#focus {width:800px; height:280px; margin:auto; overflow:hidden; position:relative;}
+ul {height:280px; position:absolute;}
+li {width:800px; height:280px; overflow:hidden; float:left; position:relative;}
+.preNext {width:45px; height:100px; position:absolute; top:90px; background:url(../img/sprite.png) no-repeat 0 0; cursor:pointer;}
+.pre {left:0px;}
+.next {right:0px; background-position:right top;}
+</style>
+<script>
+$(document).ready(function(e) {
+    var len = $(li).length;
+	var index = 0;
+	var auto;
+	
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i<len; i++){
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$('#focus').append(btn);
+});
+</script>
+</head>
+
+<body>
+<div id="focus">
+<ul>
+  <li><img src="../img/01.jpg"/></li>
+  <li><img src="../img/02.jpg"/></li>
+  <li><img src="../img/03.jpg"/></li>
+  <li><img src="../img/04.jpg"/></li>
+  <li><img src="../img/05.jpg"/></li>
+</ul>
+</div>
+</body>
+</html>

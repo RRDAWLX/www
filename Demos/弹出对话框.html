@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+* {margin:0; padding:0; border:0}
+#div1 {width:50px; height:auto; border:solid 1px black; margin:100px auto; cursor:pointer;}
+#div2 {position:fixed; top:0; left:0; z-index:100; background:#000; opacity:0.5; display:none;}
+#div3 {width:200px; height:100px; border:solid 1px #0000CC;}
+</style>
+
+<script>
+window.onload = function(){
+	document.getElementById("div1").onclick = function(){
+		//获取当前浏览器窗口宽度和高度
+		var ww = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+		var wh = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		
+		//显示背景层，设置宽度和高度
+		var node2 = document.getElementById("div2");
+		node2.style.display = "block";
+		node2.style.width = ww + "px";
+		node2.style.height = wh + "px";
+		
+		//设置对话框位置
+		var node3 = document.getElementById("div3");
+		node3.style.marginLeft = (ww - 200) / 2 + "px";
+		node3.style.marginTop = (wh - 100) / 2 + "px";
+	};
+	
+	document.getElementById("div2").addEventListener("click", function(e){
+		e.currentTarget.style.display = "none";
+	}, false);
+}
+</script>
+</head>
+
+<body>
+<div id="div1">button</div>
+<div id="div2">
+  <div id="div3">
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>旋转</title>
+<style>
+* {margin:0; padding:0; border:0;}
+div {width:200px; height:200px; margin-left:100px; margin-top:-100px;}
+img {width:200px; height:200px; border-radius:100px;}
+</style>
+
+<script>
+/* window.onload = function(){
+	var img = document.getElementsByTagName("img")[0];
+	var degree = 0;
+	setInterval(function(){
+		degree += 1;
+		if(degree > 360){
+			degree -= 360;
+		}
+		img.style.transform = "rotate(" + degree + "deg)";
+	}, 50);
+}*/
+
+window.onload = function(){
+	var rotateImg = function(){
+		var img = document.getElementsByTagName("img")[0];
+		var degree = 0;
+		return function(){
+			degree += 1;
+			if(degree > 360){
+				degree -= 360;
+			}
+			img.style.transform = "rotate(" + degree + "deg)";
+		}
+	}();
+	
+	var startRotate = setInterval(rotateImg, 50);
+	
+	document.getElementsByTagName("img").item(0).onmouseover = function () {
+		clearInterval(startRotate);
+		//var degree = parseInt(document.getElementsByTagName("img").item(0).style.transform.replace(/[^0-9]/ig, ""));
+	}
+	document.getElementsByTagName("img").item(0).onmouseout = function() {
+		startRotate = setInterval(rotateImg, 50);
+	}
+}
+</script>
+</head>
+
+<body>
+<div><img src="img/earth.jpg"/><div>
+</body>
+</html>

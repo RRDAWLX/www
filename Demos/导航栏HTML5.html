@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>导航栏HTML5</title>
+
+<style>
+* {margin:0; padding:0; border:0;}
+.out {margin:auto; width:400px; height:auto; border:solid 1px black; list-style:none; background:#3C0; margin-top:50px;}
+.out > div {float:left; width:100px; height:18px; position:relative;}
+.out:after {display:block; content:""; height:0; clear:both;}
+.in {width:100px; height:0px; overflow:hidden; list-style:none; border:solid 1px black; border-top-width:0px; background-color:#60C; position:absolute; left:-1px; top:100%; transition:height 0.1s linear;}
+.out > div:hover .in {height:54px;}
+li:hover {background-color:#F00;}
+</style>
+</head>
+
+<body>
+<nav class="out">
+  <div>item1
+    <ul class="in">
+      <li>item1.2</li>
+      <li>item1.2</li>
+      <li>item1.2</li>
+    </ul>
+  </div>
+  <div>item2
+    <ul class="in">
+      <li>item2.2</li>
+      <li>item2.2</li>
+      <li>item2.2</li>
+    </ul>
+  </div>
+  <div>item3
+    <ul class="in">
+      <li>item3.2</li>
+      <li>item3.2</li>
+      <li>item3.2</li>
+    </ul>
+  </div>
+  <div>item4
+    <ul class="in">
+      <li>item4.2</li>
+      <li>item4.2</li>
+      <li>item4.2</li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>
