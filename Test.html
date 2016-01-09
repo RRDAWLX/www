@@ -18,7 +18,52 @@ html, body {width: 100%; height: 100%;}
 
 
 <script>
+// 一般兼容性处理方式，每次函数执行都进行能力检测。
+var addClick1 = function (ele, callback){
+	if(ele.addEventListener){
+		ele.addEventListener('click', callback, false);
+	}else{
+		ele.onclick = callback;
+	}
+}
 
+console.log('addClick1', addClick1);
+
+// 惰性载入1：在函数声明时指定适当的函数。
+var addClick2 = function () {
+	if(document.addEventListener){
+		return function (ele, callback){
+			ele.addEventListener('click', callback, false);
+		};
+	}else{
+		return function (ele, callback){
+			ele.onclick = callback;
+		}
+	}
+}();
+
+console.log('addClick2', addClick2);
+
+// 惰性载入2：在函数首次执行时指定适当的函数。
+var addClick3 = function(ele, callback){
+	if(ele.addEventListener){
+		addClick3 = function(ele, callback){
+			ele.addEventListener('click', callback, false);
+		}
+	}else{
+		addClick3 = function(ele, callback){
+			ele.onclick = callback;
+		}
+	}
+	
+	addClick3(ele, callback);
+}
+
+console.log('addClick3-1', addClick3);
+
+addClick3(document, function(){console.log('Yo!')});
+
+console.log('addClick3-2', addClick3);
 
 </script>
 </body>
