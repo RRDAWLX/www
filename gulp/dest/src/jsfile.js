@@ -1,0 +1,1 @@
+$(document).ready(function(){var o;for(o=0;10>o;o++)console.log(o);var n="change something";console.log(n)});
