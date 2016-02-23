@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>弹性滚动-webkit-overflow-scrolling</title>
+<style>
+*{margin:0; padding:0; border:0;}
+#out {width:400px; height:200px; margin:auto; overflow:auto; -webkit-overflow-scrolling:touch;}
+#in {width:1200px;}
+.content {width:400px; height:200px; float:left; background-color:#000; color:#fff; font-size:50px; line-height:200px; text-align:center;}
+</style>
+</head>
+
+<body>
+  <div id="out">
+    <div id="in">
+      <div class="content">1</div>
+      <div class="content">2</div>
+      <div class="content">3</div>
+    </div>
+  </div>
+</body>
+</html>

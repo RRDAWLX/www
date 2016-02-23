@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>gallery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="zepto.min.js"></script>
+
+<style>
+* {margin:0; padding:0; border:0;}
+body {background-color:black;}
+ul {list-style:none;}
+li {float:left; width:100px; height:100px; overflow:hidden;}
+</style>
+</head>
+
+<body>
+  <ul class="img-container" id="container">
+  	<li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+    <li><img src="img/1.jpg"/></li>
+  </ul>
+<script>
+var total = 17;
+var zWin = $(window);
+var render = function(){
+	var padding = 2;
+	var winWidth = zWin.width();
+	var picWidth = Math.floor((winWidth - padding * 3)/4);
+	var tmpl = "";
+	for(var i = 1; i <= total; i++){
+		var p = padding;
+		var imgSrc = "img/" + i + ".jpg";
+		if(i%4 == 1){
+			p = 0;
+		}
+		tmpl += "<li style='width:" + picWidth + "px;height:" + picWidth + "px;padding-left:" + p + "px;padding-top:" + padding + "px'><canvas id='cvs_" + i + "'></canvas></li>";
+		var imageObj = new Image();
+		imageObj.index = i;
+		imageObj.onload = function(){
+			var cvs = $("#cvs_" + this.index)[0].getContext("2d");
+			cvs.width = this.width;
+			cvs.height = this.height;
+			cvs.drawImage(this, 0, 0);
+		}
+		imageObj.src = imgSrc;
+	}
+	
+	$("#container").html(tmpl);
+}
+render();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

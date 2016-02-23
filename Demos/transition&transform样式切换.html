@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>transition&transform样式切换</title>
+<style>
+* {margin:0; padding:0; border:0;}
+div {float:left; width:100px; height:100px; margin-top:100px;}
+/* 如果在#div1{}中写好所有样式，然后在.hover{}中设置改变的样式，再通过JS动态添加到div1上，不会有变化。
+ * 这与CSS选择器优先级有关：#id(priority:100) > .class(priority:10) > tagName(priority:1)
+ * priority值可以叠加，例如：.class{}的priority = 10；div.class{}的priority = 1 + 10 = 11；
+*/
+#div1 {background:#F00;}
+.hover1 {background:#0F0; transform:matrix(1,0,0,1,0,0); transition:transform 0.3s;}
+.hover2 {transform:matrix(1.5,0,0,1.5,0,0);}
+#div3 {background:#FF0;}
+.hover {background:#000;}
+</style>
+
+<script>
+window.onload = function(){
+	var flag = true;
+	document.getElementById("div2").addEventListener("click", function(e){
+		if(flag){
+			e.currentTarget.classList.add("hover2");
+			flag = false;
+		}else{
+			e.currentTarget.classList.remove("hover2");
+			flag = true;
+		}
+	}, false);
+	
+	document.getElementById("div3").addEventListener("click", function(e){
+		//e.target.classList.add("hover");
+		//e.target.style.background = "#000";
+		this.style.background = "#000";
+	}, false);
+}
+</script>
+</head>
+
+<body>
+<div id="div1"></div>
+<div id="div2" class="hover1"></div>
+<div id="div3"></div>
+</body>
+</html>

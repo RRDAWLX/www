@@ -1,37 +1,70 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie6" lang="zh-cn"><![endif]-->
-<!--[if IE 7 ]><html class="ie7" lang="zh-cn"><![endif]-->
-<!--[if IE 8 ]><html class="ie8" lang="zh-cn"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]>--><html lang="zh-cn"><!--<![endif]-->
+<!Doctype html>
+<html>
 <head>
-  <meta charset="utf-8" />
-  <title>Test</title>
-  
-  <style>
-  .block {width:200px; height:200px; border:1px solid red; border-radius:20px/100px;}
-  </style>
+<meta charset="utf-8">
+<title>Test</title>
+<style>
+* {margin: 0; padding: 0; border: 0;}
+html, body {width: 100%; height: 100%;}
+#position {position: relative; padding:5px 0; background-color:#00F;}
+#position:after {position:absolute; width:100%; padding-top:30%; content:''; background-color:#FF0;}
+</style>
+
+<script src="jquery.min.js"></script>
 </head>
 
-<body id="body" style="height:200px;">
-<div class="block"></div>
+<body>
+<div id="position"></div>
 
-<form method="get">
-  <select multiple size="2" name="sele">
-    <option value="1">1</option>
-    <option value="2">2</option>
-  </select>
-  
-  <button type="submit">submit</button>
-</form>
 
-<script src="js/jquery.min.js"></script>
 <script>
-console.dir(fn);
-
-function fn () {
-	var a = 1;
+// 一般兼容性处理方式，每次函数执行都进行能力检测。
+var addClick1 = function (ele, callback){
+	if(ele.addEventListener){
+		ele.addEventListener('click', callback, false);
+	}else{
+		ele.onclick = callback;
+	}
 }
+
+console.log('addClick1', addClick1);
+
+// 惰性载入1：在函数声明时指定适当的函数。
+var addClick2 = function () {
+	if(document.addEventListener){
+		return function (ele, callback){
+			ele.addEventListener('click', callback, false);
+		};
+	}else{
+		return function (ele, callback){
+			ele.onclick = callback;
+		}
+	}
+}();
+
+console.log('addClick2', addClick2);
+
+// 惰性载入2：在函数首次执行时指定适当的函数。
+var addClick3 = function(ele, callback){
+	if(ele.addEventListener){
+		addClick3 = function(ele, callback){
+			ele.addEventListener('click', callback, false);
+		}
+	}else{
+		addClick3 = function(ele, callback){
+			ele.onclick = callback;
+		}
+	}
+	
+	addClick3(ele, callback);
+}
+
+console.log('addClick3-1', addClick3);
+
+addClick3(document, function(){console.log('Yo!')});
+
+console.log('addClick3-2', addClick3);
+
 </script>
 </body>
-
 </html>

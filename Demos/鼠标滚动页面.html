@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>鼠标滚动页面</title>
+<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+<script>
+$(document).ready(function(e) {
+	//获取浏览器窗口高度
+    var windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+	//将pages高度设置为浏览器高度
+	var $pages = $(".pages");
+	$pages.css({"height":windowHeight + "px"});
+	//当前所在页id
+	var pageId = 0;
+	
+	$(window).resize(function(e) {
+        windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		$(".pages").css({"height":windowHeight});
+		window.scrollTo(0, pageId * windowHeight);
+    });
+	
+	var flag = true;
+	var scrollFunc = function(e){
+		e = e || window.event;
+		e.preventDefault();  //阻止默认页面滚动
+		//当前所在页面id
+		pageId = Math.floor($(document).scrollTop() / windowHeight);
+		
+		if(flag){
+			flag = false;
+			
+			if(e.wheelDelta){  //判断IE、Chrome滑轮事件
+				if(e.wheelDelta > 0){  //滑轮向上滚动
+					pageId--;
+				}
+				if(e.wheelDelta < 0){  //滑轮向下滚动
+					pageId++;
+				}
+			}else if(e.detail){  //判断Firefox滚轮事件
+				if(e.detail < 0){  //滑轮向上滚动
+					pageId--;
+				}
+				if(e.detail > 0){  //滑轮向下滚动
+					pageId++;
+				}
+			}
+		
+			if(pageId < 0){
+				pageId = 0;
+			}
+			if(pageId >= $pages.length){
+				pageId = $pages.length - 1;
+			}
+			
+			var scrollPosition = pageId * windowHeight;
+			$("body, html").animate({scrollTop:scrollPosition}, 500, function(){flag = true;});
+			//window.scrollTo(0, scrollPosition); flag = true;
+		}
+	}
+	
+	//给页面绑定滑轮滚动事件
+	if(document.addEventListener){  	//Firefox
+		document.addEventListener("DOMMouseScroll", scrollFunc, false);
+	}
+	 	//IE、Chrome
+		window.onmousewheel = document.onmousewheel = scrollFunc;
+});
+</script>
+
+<style>
+* {margin:0; padding:0; border:0;}
+.pages {width:100%;}
+#page1 {background-color:#F00;}
+#page2 {background-color:#0F0;}
+#page3 {background-color:#00F;}
+#page4 {background-color:#FF0;}
+</style>
+</head>
+
+<body>
+<div class="pages" id="page1"></div>
+<div class="pages" id="page2"></div>
+<div class="pages" id="page3"></div>
+<div class="pages" id="page4"></div>
+</body>
+</html>

@@ -1,36 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PDO</title>
+</head>
+<body>
 <?php
-//$dbms = 'mysql';
-//$host = 'localhost';
-//$dbname = 'my_db';
-//$user = 'root';
-//$password = 'admin';
-//$dsn = '$dbms:host=$host;dbname=$dbname';
-//
-//try{
-//  $dbh = new PDO($dsn, $user, $password);
-//  echo 'success!<br/>';
-//  print_r($dbh->query('select * from persons'));
-//  $dbh = null;
-//}catch(PDOException $e){
-//  die('Error: ' . $e->getMessage() . '<br/>');
-//}
+$servername = 'localhost';
+$username = 'root';
+$password = 'admin';
+
+try {
+	$conn = new PDO("mysql:host=$servername;dbname=my_db", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$sql = 'create database phpdb';
+	$conn->exec($sql);
+	echo 'Database created successfully<br/>';
+}catch(PDOException $e){
+	echo $sql . '<br/>' . $e->getMessage();
+}
+
+$conn = null;
 ?>
-
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "admin";
-$dbname = 'my_db';
-
-// 创建连接
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// 检测连接
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-
-$sql = 'select * from persons';
-$result = $conn->query($sql);
-print_r($result->fetch_all());
-?>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>画廊展示特效_纯CSS</title>
+
+<style>
+* {margin:0; padding:0; border:0;}
+.john {background:url(http://webhek.com/demos/images/kwicks/john.gif) no-repeat;}
+.paul {background:url(http://webhek.com/demos/images/kwicks/paul.gif) no-repeat;}
+.george {background:url(http://webhek.com/demos/images/kwicks/george.gif) no-repeat;}
+.ringo {background:url(http://webhek.com/demos/images/kwicks/ringo.gif) no-repeat;}
+
+ul {width:585px; overflow-x:hidden;}
+ul li {float:left; overflow-x:hidden; display:block;}
+ul li a {display:block; width:146px; height:143px; text-indent:-9999px; transition:width 1s;}
+
+ul:hover li a {width:100px;}
+ul li a:hover {width:285px !important;}
+</style>
+
+</head>
+
+<body>
+<ul id="kwicks">
+	<li><a class="john" href="http://en.wikipedia.org/wiki/John_lennon" title="John Lennon" >John Lennon</a></li>
+	<li><a class="paul" href="http://en.wikipedia.org/wiki/Paul_mccartney" title="Paul McCartney">Paul McCartney</a></li>
+	<li><a class="george" href="http://en.wikipedia.org/wiki/George_harrison" title="George Harrison">George Harrison</a></li>
+	<li><a class="ringo" href="http://en.wikipedia.org/wiki/Ringo_starr" title="Ringo Starr">Ringo Starr</a></li>
+</ul>
+</body>
+</html>

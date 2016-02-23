@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>滑动</title>
+<style>
+* {margin:0; padding:0; border:0;}
+div {margin:auto; overflow:hidden; position:relative;}
+ul{list-style:none; position:absolute;}
+li {float:left; overflow:hidden; position:relative;}
+.btnBg {width:100%; height:20px; position:absolute; left:0; bottom:0; background-color:#000; opacity:0.5;}
+.btn {width:100%; height:10px; padding:5px 0; position:absolute; left:0; bottom:0; text-align:right;}
+span {width:25px; height:10px; display:inline-block; background-color:#fff; margin-right:15px; cursor:pointer; opacity:0.4;}
+.preNext {width:45px; height:100px; position:absolute; top:90px; background:url(../img/sprite.png) no-repeat 0 0; cursor:pointer;}
+.pre {left:0;}
+.next {right:0; background-position:right top;}
+</style>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script>
+$(document).ready(function(e) {
+    var liWidth = $('img:first').width();
+	var liHeight = $('img:first').height();
+	var len = $('li').length;
+	var index = 0;
+	var auto;
+	
+	$('#focus').css({'width':liWidth, 'height':liHeight});
+	$('ul').css({'width':liWidth*len, 'height':liHeight});
+	$('li').css({'width':liWidth, 'height':liHeight});
+	
+	var btn = "<div class='btnBg'></div><div class='btn'>";
+	for(var i=0; i<len; i++){
+		btn += "<span></span>";
+	}
+	btn += "</div><div class='preNext pre'></div><div class='preNext next'></div>";
+	$('#focus').append(btn);
+	
+	//判断是否可移动
+	var flag = true;
+	
+	function showPic(num){
+		var nowLeft = -num*liWidth;
+		$('ul').stop(true,false).animate({'left':nowLeft}, 300,function(){flag = true;});
+		$('span').css('opacity',0.4).eq(num).css('opacity',1);
+	}
+	
+	$('span').mouseenter(function(){
+		index = $(this).index();
+		showPic(index);
+	}).eq(0).trigger('mouseenter');
+	
+	$('.preNext').css('opacity',0.2).hover(function(){
+		$(this).stop(true,false).css('opacity',0.5);
+	},function(){
+		$(this).stop(true,false).css('opacity',0.2);
+	});
+	
+	var skewing1 = - liWidth * len;
+	$('.pre').click(function(e) {
+		if(flag){ 
+		flag = false;
+		index--;
+		if(index == -1){
+			$('li').eq(len-1).css({'left':skewing1});
+			$('ul').stop(true,false).animate({'left':liWidth}, 300, function(){
+				$('li').eq(len-1).css({'left':0});
+				var nowLeft = -(len-1)*liWidth;
+				$('ul').css({'left':nowLeft});
+				index = len-1; 
+				flag = true;
+			});
+			$('span').css('opacity',0.4).eq(len-1).css('opacity',1);
+		}else{
+			showPic(index);
+		}}
+    });
+	
+	var skewing2 = liWidth*len;
+	$('.next').click(function(e) {
+		if(flag){ 
+		flag = false;
+        index++;
+		if(index == len){
+			$('li').eq(0).css({'left':skewing2});
+			var nowLeft = -len*liWidth;
+			$('ul').stop(true,false).animate({'left':nowLeft}, 300, function(){
+				$('li').eq(0).css({'left':0});
+				$('ul').css({'left':0});
+				index = 0; 
+				flag = true;
+			})
+			$('span').css('opacity',0.4).eq(0).css('opacity',1);
+		}else{
+			showPic(index);
+		}}
+    });
+	
+	$('#focus').hover(function(){
+		clearInterval(auto);
+	},function(){
+		auto = setInterval(function(){
+			index++;
+			if(index == len){
+			$('li').eq(0).css({'left':skewing2});
+			var nowLeft = -len*liWidth;
+			$('ul').stop(true,false).animate({'left':nowLeft}, 300, function(){
+				$('li').eq(0).css({'left':0});
+				$('ul').css({'left':0});
+				index = 0;
+			})
+			$('span').css('opacity',0.4).eq(0).css('opacity',1);
+		}else{
+			showPic(index);
+		}}, 2000);
+	}).trigger('mouseleave');
+});
+</script>
+</head>
+
+<body>
+<div id="focus">
+<ul>
+  <li style="background-color:#000;"><img src="../img/01.jpg"/></li>
+  <li style="background-color:#00f;"><img src="../img/02.jpg"/></li>
+  <li style="background-color:#0f0;"><img src="../img/03.jpg"/></li>
+  <li style="background-color:#f00;"><img src="../img/04.jpg"/></li>
+  <li style="background-color:#0ff;"><img src="../img/05.jpg"/></li>
+</ul>
+</div>
+</body>
+</html>

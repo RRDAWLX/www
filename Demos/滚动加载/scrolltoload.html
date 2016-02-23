@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>滚动加载</title>
+
+<style>
+* {margin:0; padding:0; border:0;}
+#container {width:960px; margin:auto;}
+#container:after {display:block; height:0; content:''; clear:both;}
+.item {width:300px; height:200px; float:left; margin:10px; background-color:yellow;}
+</style>
+</head>
+
+<body>
+<div id="container">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+  <div class="item">4</div>
+  <div class="item">5</div>
+  <div class="item">6</div>
+  <div class="item">7</div>
+  <div class="item">8</div>
+  <div class="item">9</div>
+  <div class="item">10</div>
+  <div class="item">11</div>
+  <div class="item">12</div>
+</div>
+<script>
+var time = new Date() * 1;  // 获取当前时间数值
+window.onscroll = function(){
+	h_window = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight; // 获取视口高度
+	h_document = document.documentElement.scrollHeight || document.body.scrollHeight;  // 获取网页高度
+	h_scroll = document.documentElement.scrollTop || document.body.scrollTop;  // 获取页面的滚动高度
+	
+	// 当 此次滚动于上次滚动间隔大于100毫秒 且 页面滚动高度+视口高度 > 网页高度 - 一个固定数值 时，加载新内容
+	if((new Date() * 1 - time > 100) && (h_window + h_scroll > h_document - 50)){
+		time = new Date() * 1;
+		
+		// 先将加载进来的新内容放入文档片段，再将文档片段添加到页面后面
+		var fragment = document.createDocumentFragment();
+		len = document.getElementsByClassName('item').length;
+		for(var i = 0; i < 12; i++){
+			var item = document.createElement('div');
+			item.className = 'item';
+			item.appendChild(document.createTextNode(++len));
+			fragment.appendChild(item);
+		}
+		document.getElementById('container').appendChild(fragment);
+	}
+};
+</script>
+</body>
+</html>
