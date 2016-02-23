@@ -1,0 +1,8 @@
+{
+    "jscodehints.detectedExclusions": [
+        "D:/Programming/www/bui/src/calendar/header.js",
+        "D:/Programming/www/bui/src/chart/axis/abstract.js",
+        "D:/Programming/www/bui/src/chart/axis/auto.js",
+        "D:/Programming/www/bui/src/chart/axis/base.js"
+    ]
+}

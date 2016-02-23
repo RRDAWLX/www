@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>KindEditor</title>
+</head>
+
+<body>
+<textarea id="KEditor" name="content" style="width:800px;height:400px;visibility:hidden;"></textarea>
+<div id="remain"></div>
+
+<textarea>
+sfsadf
+sadfas
+afdsa
+</textarea>
+
+<script src="js/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://static.wlx.dev.ipo.com/js/manage/common/plugins/kindeditor/kindeditor-min.js"></script>
+<script>
+var editor;
+var option = {
+		  width: "100%",
+		  minWidth : 450,
+		  minHeight : 200,
+		  resizeType : 0,
+		  allowPreviewEmoticons : false,
+		  allowImageUpload : true,
+		  syncType:"",
+		  items : [
+			  'fontsize', 'fontname', 'image', 'forecolor', 'bold', 'italic', 'undo', 'redo'],
+		  afterChange : function() {
+			  //this.count(); //字数统计包含HTML代码
+			  // this.count('text');  //字数统计包含纯文本、IMG、EMBED，不包含换行符，IMG和EMBED算一个文字
+			  //限制字数
+			  var limitNum = 500,  //设定限制字数
+				  pattern = '',
+				  remain = $('#remain');
+
+			  if(this.count('text') > limitNum) {
+				 pattern = '字数超过限制，请适当删除部分内容';
+				 //超过字数限制自动截取
+				 var strValue = editor.text();
+				 strValue = strValue.substring(0,limitNum);
+				 editor.text(strValue);   
+				 editor.appendHtml('');
+				 
+				 // 提示信息显示为红色
+				 remain.addClass('alert-danger');
+			   } else {
+				  //计算剩余字数
+				  var result = limitNum - this.count('text'); 
+				  pattern = '还可以输入' +  result + '字!'; 
+				  
+				  // 提示信息显示为蓝色
+				  remain.removeClass('alert-danger');
+			   }
+			   remain.html(pattern); //输入显示
+			},
+			afterFocus: function(){
+				$('#remain').closest('.form-group').attr('data-validated', '1').next().hide(); 
+			},
+			afterBlur: function(){
+				editor.sync();
+				if(this.count('text') == 0){
+					$('#remain').closest('.form-group').attr('data-validated', '0').next().show(); 
+				}
+			}
+          };
+        KindEditor.ready(function(K) {
+            editor = K.create('#KEditor', option);
+        });
+		
+		document.querySelector('#space').addEventListener('blur', function(){
+			console.log(encodeURIComponent(this.value));
+		}, false);
+</script>
+</body>
+</html>

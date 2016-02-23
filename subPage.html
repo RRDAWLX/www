@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>子页面</title>
+<style>
+.bg {
+	background-color:#0FF;
+}
+</style>
+
+<script src="js/jquery.min.js"></script>
+</head>
+
+<body>
+<button id="btn1">button1</button>
+<button id="btn2">button2</button>
+
+<script>
+console.log(window.opener);
+
+$('#btn1').on('click', function(){
+	window.opener.document.write('hello');
+});
+
+$('#btn2').on('click', function(){
+	window.opener.underControl.console.log('from subPage');
+});
+</script>
+</body>
+</html>
