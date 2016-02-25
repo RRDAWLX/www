@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>Zepto Test</title>
+
+<style>
+* {margin:0; border:0; padding:0;}
+div {height:300px; background-color:#333; color:white;}
+</style>
+
+<script src="zepto.js"></script>
+</head>
+
+<body>
+<div id="touch"></div>
+
+<script>
+$('#touch').on({
+	tap: function(){
+		console.log('tap');
+	},
+	singleTap: function(){
+		console.log('single tap');
+	},
+	doubleTap: function(){
+		console.log('double tap');
+	},
+	longTap: function(){
+		console.log('long tap');
+	},
+	swipe: function(){
+		console.log('swipe');
+		alert("Don't push me again, fuck!");
+	},
+	swipeLeft: function(){
+		console.log('swipe left');
+	},
+	swipeRight: function(){
+		console.log('swipe right');
+	},
+	swipeUp: function(){
+		console.log('swipe up');
+	},
+	swipeDown: function(){
+		console.log('swipe down');
+	}
+});
+</script>
+</body>
+</html>

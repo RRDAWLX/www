@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>File upload</title>
+</head>
+
+<body>
+<form method="post" action="file_upload.php" enctype="multipart/form-data">
+  <label for="file">Choose File</label>
+  <input type="file" name="file" id="file" /><br/>
+  <button type="submit">Upload File</button>
+</form>
+
+<a id="button">上传图片</a>
+
+<script src="../js/jquery.min.js"></script>
+<script src="../swfupload/swfupload.js"></script>
+<script src="../swfupload/uploadimg.js"></script>
+<script>
+var url = {
+			swfFlashUrl: 'http://localhost/swfupload/swfupload.swf', 		// 文件上传flash控件地址
+  			imgUploadUrl: 'http://localhost/php/file_upload.php'
+		}
+		
+function initUploadBtn($buttons) {
+	$buttons.each(function () {
+		var btn = $(this);
+		new UploadImg({
+			$el: btn,
+			url: url.imgUploadUrl,
+			flash_url: url.swfFlashUrl,
+			file_types: "*.jpg; *.png; *.doc; *.docx; *.zip; *.rar;",
+			file_queue_limit: 5,
+			file_upload_limit: 5,
+			// maxSize: imgStandard.size,
+			//width: imgStandard.width,
+			//		  height: imgStandard.height,
+			success: function (data) {
+				console.log(data);
+				/*var img = data.Filedata;
+				
+				if(Number(img.iSize)/1024 >= Number(imgStandard.size)){
+				alert("请上" + imgStandard.maxSize + "k以内的图片 !");
+				return false;
+				}
+				
+				if (img.iWidth != imgStandard.width || img.iHeight != imgStandard.height) {
+				alert("请上传宽" + imgStandard.width + "px，高" + imgStandard.height + "px尺寸的图片 !");
+				return false;
+				}*/
+				
+				// 图片上传成功后的操作
+				
+			},
+			error: function (file, errorCode, message) { // 图片上传错误
+				switch (errorCode) {
+					case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+						alert("文件上传错误，确jpg、png、doc、docx、zip、rar格式！");
+						if (window.console) console.log(message);
+						break;
+					case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+						alert("文件上传错误,服务器拒绝");
+						break;
+					case "inputUploadError":
+						alert(message);
+						break;
+					default:
+						alert("文件上传错误，请确jpg、png、doc、docx、zip、rar格式！");
+						if (window.console) console.log(message);
+				}
+			}
+		});
+	});
+}
+	
+initUploadBtn($('#button'));
+</script>
+</body>
+</html>
