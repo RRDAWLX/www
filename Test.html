@@ -18,18 +18,22 @@ html, body {width: 100%; height: 100%;}
 
 
 <script>
-function Person (name) {
-	var pp = arguments.callee.prototype;
+var p;
+p = $.Deferred(function(d){
+	console.log(p);
+	d.resolve();
+	console.log(p);
+}).then(function(){
+	console.log(p);
+	
+	var p1 = $.Deferred().promise();
+	
+	console.log(p);
+	
+	return $.extend({a:1}, p1);
+});
 
-	var F = function () {};
-	F.prototype = pp;
-
-	var obj = new F();
-
-	return obj;
-}
-
-console.log(new Person('123').sayName());
+console.log(p);
 
 </script>
 </body>

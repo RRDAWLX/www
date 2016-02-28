@@ -1,0 +1,154 @@
+<!Doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Promise/A</title>
+</head>
+
+<body>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script>
+// 顺序执行多个异步操作
+// deferred.then() 中返回一个新建的 deferred 对象
+/*$.Deferred(function(d){
+	console.log('start');
+	d.resolve();
+}).then(function(){
+	var dfd = $.Deferred();
+	
+	setTimeout(function(){
+		console.log('done1');;
+		dfd.resolve();
+	},1000);
+	
+	return dfd;
+}).then(function(){
+	var dfd = $.Deferred();
+	
+	setTimeout(function(){
+		console.log('done2');;
+		dfd.resolve();
+	},1000);
+	
+	return dfd;
+}).done(function(){
+	console.log('finish');
+});*/
+
+</script>
+
+<script>
+// 传递异步操作的返回值
+/*$.Deferred(function(d){
+	d.resolve([]);
+}).then(function(arr){
+	arr.push(1);
+	console.log(arr);
+	return arr;
+}).then(function(arr){
+	arr.push(2);
+	console.log(arr);
+	return arr;
+}).then(function(arr){
+	arr.push(3);
+	console.log(arr);
+	return arr;
+}).done(function(arr){
+	console.log(arr);
+});*/
+/*
+[1]
+[1, 2]
+[1, 2, 3]
+[1, 2, 3]
+*/
+
+</script>
+
+<script>
+// 监听多个异步操作完成后再执行目标操作
+/*$.when(function(){
+	var dfd = $.Deferred();
+	
+	setTimeout(function(){
+		console.log(1);
+		dfd.resolve();
+	}, 1000);
+	
+	return dfd;
+}(), function(){
+	var dfd = $.Deferred();
+	
+	setTimeout(function(){
+		console.log(2);
+		dfd.resolve();
+	}, 2000);
+	
+	return dfd;
+}()).then(function(){
+	console.log('done');
+},function(){
+	console.log('fail');
+});*/
+
+</script>
+
+<script>
+// a,b => c
+// a,d => e
+
+var a = $.Deferred(function(d){
+		setTimeout(function(){
+			console.log('a');
+			d.resolve();
+		},500);
+	}),
+	b = $.Deferred(function(d){
+		setTimeout(function(){
+			console.log('b');
+			d.resolve();
+		},200);
+	}),
+	c = function(){
+		console.log('c');
+	},
+	d = $.Deferred(function(d){
+		setTimeout(function(){
+			console.log('d');
+			d.resolve();
+		},1000);
+	}),
+	e = function(){
+		console.log('e');
+	};
+	
+$.when(a,b).then(c);
+$.when(a,d).then(e);
+	
+
+
+</script>
+
+<style>
+#animation1 {width:50px; height:50px; background:#08A328;}
+#animation2 {width:50px; height:50px; background:#083328;}
+#animation3 {width:50px; height:50px; background:#563328;}
+</style>
+<div id="animation1"></div>
+<div id="animation2"></div>
+<div id="animation3"></div>
+<script>
+// 动画
+$.when($('#animation1').animate({marginLeft:'+=50'},500).promise()).then(function(){
+	var promise1 = $('#animation1').animate({marginLeft:'-=50'},500).promise();
+		promise2 = $('#animation2').animate({marginLeft:'+=50'},500).animate({marginLeft:'-=50'},500).promise();
+	return $.when(promise1, promise2);
+}).then(function(){
+	$('#animation1').animate({marginLeft:'+=50'},500);
+	$('#animation2').animate({marginLeft:'+=50'},500);
+	$('#animation3').animate({marginLeft:'+=50'},500);
+});
+
+</script>
+</body>
+</html>
