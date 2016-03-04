@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>rem自适应布局</title>
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+<style>
+* {margin:0; padding:0; border:0;}
+html {min-width:320px;}
+.box1 {float:left; width:1rem; height:1rem; background-color:green; font-size:0.32rem; line-height:1rem; text-align:center;}
+.box2 {float:left; width:1.2rem; height:1rem; background-color:red; font-size:0.32rem; line-height:1rem; text-align:center;}
+.box3 {float:left; width:1rem; height:1rem; background-color:yellow; font-size:0.32rem; line-height:1rem; text-align:center;}
+</style>
+</head>
+
+<body>
+<script>
+console.log(window.innerWidth);
+(function(doc, win){
+	var docEle = document.documentElement;
+	
+	function adapt () {
+		docEle.style.fontSize = Math.max(docEle.clientWidth,320) / 320 * 100 + 'px';
+	}
+	
+	doc.addEventListener('DOMContentLoaded', adapt, false);
+	win.addEventListener('orientationchange', adapt, false);
+	win.addEventListener('resize', adapt, false);
+})(document, window);
+</script>
+
+<div class="box1">田</div>
+<div class="box2">田</div>
+<div class="box3">田</div>
+</body>
+</html>
