@@ -5,12 +5,9 @@
 <title>Test</title>
 <style>
 * {margin: 0; padding: 0; border: 0;}
-html, body {width: 100%; height: 100%;}
-#position {position: relative; padding:5px 0; background-color:#00F;}
-#position:after {position:absolute; width:100%; padding-top:30%; content:''; background-color:#FF0;}
+
 </style>
 
-<script src="jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,47 +15,7 @@ html, body {width: 100%; height: 100%;}
 
 
 <script>
-/*Object.prototype.deepClone = function () {
-	if(window.JSON){
-		return JSON.parse(JSON.stringify(this));
-	}else{
-		function DeepClone () {};
-		DeepClone.prototype = this;
-		var clone = new DeepClone();
-		
-		for(var i in this){
-			if(this.hasOwnProperty(i)){
-				clone[i] = typeof this[i] === 'object' ? this[i].deepClone() : this[i];
-			}
-		}
-		
-		return clone;
-	}
-}
 
-var obja = {
-	fn: function () {
-		console.log(a);
-	}
-};
-
-var objb = obja.deepClone();
-
-console.log(obja);
-console.log(objb);
-
-
-var arr1 = [{a:1},{b:2}];
-var arr2 = arr1.deepClone();
-arr1[0].a = 3;
-arr2[1].b = 4;
-
-console.log(arr1);
-console.log(arr2);
-console.log(arr1 === arr2);*/
-
-function fn () {};
-console.log(fn.bind);
 
 </script>
 </body>
