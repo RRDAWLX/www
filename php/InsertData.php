@@ -17,7 +17,7 @@ try{
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
 	$sql = "insert into myguests (firstname, lastname, email)
-		values('longxiang', 'wang', '815311850@qq.com');";
+		values('Tony', 'Wang', 'rrdawlx@gmail.com');";
 	$conn->exec($sql);
 	echo 'New record created successfully!';
 }catch(PDOException $e){

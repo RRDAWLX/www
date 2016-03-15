@@ -18,22 +18,47 @@ html, body {width: 100%; height: 100%;}
 
 
 <script>
-var p;
-p = $.Deferred(function(d){
-	console.log(p);
-	d.resolve();
-	console.log(p);
-}).then(function(){
-	console.log(p);
-	
-	var p1 = $.Deferred().promise();
-	
-	console.log(p);
-	
-	return $.extend({a:1}, p1);
-});
+/*Object.prototype.deepClone = function () {
+	if(window.JSON){
+		return JSON.parse(JSON.stringify(this));
+	}else{
+		function DeepClone () {};
+		DeepClone.prototype = this;
+		var clone = new DeepClone();
+		
+		for(var i in this){
+			if(this.hasOwnProperty(i)){
+				clone[i] = typeof this[i] === 'object' ? this[i].deepClone() : this[i];
+			}
+		}
+		
+		return clone;
+	}
+}
 
-console.log(p);
+var obja = {
+	fn: function () {
+		console.log(a);
+	}
+};
+
+var objb = obja.deepClone();
+
+console.log(obja);
+console.log(objb);
+
+
+var arr1 = [{a:1},{b:2}];
+var arr2 = arr1.deepClone();
+arr1[0].a = 3;
+arr2[1].b = 4;
+
+console.log(arr1);
+console.log(arr2);
+console.log(arr1 === arr2);*/
+
+function fn () {};
+console.log(fn.bind);
 
 </script>
 </body>

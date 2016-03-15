@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>react class</title>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+<div id="example1"></div>
+<div id="example2"></div>
+
+<script type="text/babel">
+var HelloMessage = React.createClass({
+	render: function () {
+		return (<h1>Hello {this.props.name}!</h1>);
+	}
+});
+
+ReactDOM.render(
+	<HelloMessage name="rrdawlx" />,
+	document.getElementById('example1')
+);
+
+var Name = React.createClass({
+	render: function () {
+		return (<h1>{this.props.name}</h1>);
+	}
+});
+
+var Link = React.createClass({
+	render: function () {
+		return (<a>{this.props.site}</a>);
+	}
+});
+
+var WebSite = React.createClass({
+	render: function () {
+		return( 
+			<div>
+			  <Name name={this.props.name} />
+			  <Link site={this.props.site} />
+			</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<WebSite name="rrdawlx" site="https://www.baidu.com" />,
+	document.getElementById('example2')
+);
+
+</script>
+</body>
+</html>

@@ -45,3 +45,5 @@ libs/
 
 # gulp项目中非项目代码、资源文件
 /gulp/node_modules/
+
+_notes/

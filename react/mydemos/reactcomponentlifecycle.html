@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>react component lifecycle</title>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+<div id="example1"></div>
+<div id="example2"></div>
+
+<script type="text/babel">
+var Hello = React.createClass({
+	getInitialState: function(){
+		return {
+			opacity: 1.0
+		}
+	},
+	
+	componentDidMount: function(){
+		this.timer = setTimeout(function(){
+			var opacity = this.state.opacity;
+			opacity -= 0.05;
+			if(opacity < 0){
+				opacity = 1.0;
+			}
+			this.setState({
+				opacity: opacity
+			});
+		}.bind(this), 100);
+		
+		//console.dir(ReactDOM.findDOMNode(this));
+	},
+	
+	render: function(){
+		return (
+			<div style={{opacity: this.state.opacity}}>Hello {this.props.name}</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<Hello name="kitty" />,
+	document.getElementById('example1')
+)
+
+</script>
+
+<script type="text/babel">
+var Content = React.createClass({
+	componentWillMount: function(){
+		console.log('Component will mount!');
+	},
+	componentDidMount: function(){
+		console.log('Component did mount!');
+	},
+	componentWillReceiveProps:function(){
+		console.log('Component will receive props!');
+	},
+	shouldComponentUpdate: function(newProps, newState){
+		console.log('Should component update?');
+		
+		/*if(newProps.myNumber === 3){
+			ReactDOM.unmountComponentAtNode(document.getElementById('example2'));
+			return false;
+		}*/
+		
+		return true;
+	},
+	componentWillUpdate: function(newProps, newState){
+		console.log('Component will update!');
+	},
+	componentDidUpdate: function(oldProps, oldState){
+		console.log('Component did update!');
+	},
+	componentWillUnmount: function(){
+		console.log('Component will unmount!');
+	},
+	render: function(){
+		return (
+			<div>
+			  <h3>{this.props.myNumber}</h3>
+			</div>
+		);
+	}
+});
+
+var Button = React.createClass({
+	getInitialState: function(){
+		return {
+			data: 0
+		};
+	},
+	setNewNumber: function(){
+		this.setState({data: this.state.data + 1});
+	},
+	render: function(){
+		return(
+			<div>
+			  <button onClick={this.setNewNumber}>Increase</button>
+              <Content myNumber={this.state.data} />
+			</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<Button />,
+	document.getElementById('example2')
+);
+
+
+</script>
+</body>
+</html>

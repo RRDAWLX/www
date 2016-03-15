@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>react state</title>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+<div id="example1"></div>
+
+
+<script type="text/babel">
+// setState(object nextState[, function callback])
+var Counter = React.createClass({
+	getInitialState: function () {
+		return { clickCount: 0};
+	},
+	handleClick: function () {
+		console.log(ReactDOM.findDOMNode(this));
+		this.setState(function(state){
+			return {clickCount: state.clickCount + 1};
+		});
+	},
+	render: function(){
+		return (<h2 onClick={this.handleClick}>点我！点击次数为：{this.state.clickCount}</h2>);
+	}
+});
+
+ReactDOM.render(
+	<Counter />,
+	document.getElementById('example1')
+);
+
+</script>
+</body>
+</html>

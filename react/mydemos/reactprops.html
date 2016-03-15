@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>react props</title>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+<div id="example1"></div>
+
+
+<script type="text/babel">
+var Name = React.createClass({
+	render: function () {
+		return (
+			<h1>{this.props.name}</h1>
+		);
+	}
+});
+
+var Link = React.createClass({
+	render: function () {
+		return (
+			<a href={this.props.site}>{this.props.site}</a>
+		);
+	}
+});
+
+var WebSite = React.createClass({
+	getInitialState: function () {
+		return {
+			name: 'wlx',
+			site: 'http://www.baidu.com'
+		};
+	},
+	
+	render: function () {
+		return (
+			<div>
+			  <Name name={this.state.name} />
+			  <Link site={this.state.site} />
+			</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<WebSite />,
+	document.getElementById('example1')
+);
+
+</script>
+</body>
+</html>

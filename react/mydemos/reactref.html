@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>react ref</title>
+<script src="../build/react.js"></script>
+<script src="../build/react-dom.js"></script>
+<script src="../build/browser.min.js"></script>
+</head>
+
+<body>
+<div id="example1"></div>
+
+<script type="text/babel">
+var MyComponent = React.createClass({
+	handleClick: function(){
+		console.log(this.refs.myInput);
+		this.refs.myInput.focus();
+	},
+	render: function(){
+		return (
+			<div>
+			  <input type="text" ref="myInput" />
+			  <button type="button" onClick={this.handleClick}>click me</button>
+			</div>
+		);
+	}
+});
+
+ReactDOM.render(
+	<MyComponent />,
+	document.getElementById('example1')
+);
+
+</script>
+
+</body>
+</html>
