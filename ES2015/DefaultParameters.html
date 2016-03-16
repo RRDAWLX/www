@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Default Parameters（默认参数）</title>
+</head>
+
+<body>
+
+<script>
+// http://www.oschina.net/news/71566/es6-developers-will-have-to-know
+
+function Person (name = 'wlx', age = 24) {
+	this.name = name;
+	this.age = age;
+}
+
+console.log(new Person());	// {name: "wlx", age: 24}
+
+console.log(new Person('rrdawlx', 25));		// {name: "rrdawlx", age: 25}
+</script>
+</body>
+</html>

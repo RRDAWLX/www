@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Test</title>
+<script src="js/jquery.js"></script>
 <style>
 * {margin: 0; padding: 0; border: 0;}
 
@@ -15,7 +16,10 @@
 
 
 <script>
-
+$.getJSON("http://www.runoob.com/try/ajax/jsonp.php?jsoncallback=?", function(data) {
+	console.log(data);
+});
+console.log('hello');
 
 </script>
 </body>

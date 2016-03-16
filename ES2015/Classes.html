@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Classes （类）</title>
+</head>
+
+<body>
+
+<script>
+// http://www.oschina.net/news/71566/es6-developers-will-have-to-know
+
+class BaseModel {
+  constructor (options = {private: true}, data = [123, 456]) {
+    this.name = 'Base Model';
+    this.url = 'http://www.baidu.com';
+    this.data = data;
+    this.options = options;
+  }
+  
+  getName () {
+    return 'Class name: ' + this.name;
+  }
+}
+  
+class AccountModel extends BaseModel {
+  constructor (options, data) {
+    super(options, data);
+    this.name = 'Account Model';
+    this.url += '/accounts';
+  }
+  
+  get accountData () {
+    return this.data;
+  }
+}
+  
+let base = new BaseModel();
+  
+let account = new AccountModel();
+console.log(account.getName());   // Class name: Account Model
+console.log('Data is %s', account.accountData);     // Data is Array[2]
+
+console.log(base);
+console.log(account);
+</script>
+</body>
+</html>

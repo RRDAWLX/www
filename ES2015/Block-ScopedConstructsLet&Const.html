@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Block-Scoped Constructs Let and Const（块作用域和构造let和const）</title>
+</head>
+
+<body>
+
+<script>
+// http://www.oschina.net/news/71566/es6-developers-will-have-to-know
+
+(() => {
+  var a = 'a';
+  let b = 'b';
+  const C = 'c';
+  
+  {
+    var a = 'A';
+    let b = 'B';
+    const C = 'C';
+    
+    console.log(a, b, C);   // A B C
+  }
+  
+  console.log(a, b, C);   // A b c
+  
+  {
+    a = 'A';
+    b = 'B';
+    //C = 'C';
+    
+    console.log(a, b, C);   // A B c
+  }
+})();
+
+</script>
+</body>
+</html>
