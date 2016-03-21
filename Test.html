@@ -7,20 +7,87 @@
 <style>
 * {margin: 0; padding: 0; border: 0;}
 
+#carousel {position:relative; margin:auto; width:300px; height:200px; overflow:hidden; list-style:none;}
+#carousel > li {position:absolute; width:100%; height:100%;}
+.page1 {background:red;}
+.page2 {background:green;}
+.page3 {background:orange;}
+
+.transition {transition:left 0.8s;}
+.left {left:-100%;}
+.middle {left:0;}
+.right {left:100%;}
+
 </style>
 
 </head>
 
 <body>
-<div id="position"></div>
+<ul id="carousel">
+  <li class="page page1 middle">1</li>
+  <li class="page page2 right">2</li>
+  <li class="page page3 right">3</li>
+</ul>
 
-
+<button type="button" id="pre">previous</button>
+<button type="button" id="next">next</button>
 <script>
-$.getJSON("http://www.runoob.com/try/ajax/jsonp.php?jsoncallback=?", function(data) {
-	console.log(data);
-});
-console.log('hello');
+function Carousel (carouselId, preId, nextId) {
+	this.carousel = document.getElementById(carouselId);
+	this.pages = document.getElementsByClassName('page');
+	this.len = this.pages.length;
+	this.current = 0;
+	this.sliding = false;
+	
+	document.getElementById(preId).addEventListener('click', this.slidePre.bind(this), false);
+	document.getElementById(nextId).addEventListener('click', this.slideNext.bind(this), false);
+	
+	this.carousel.addEventListener('transitionend', function(){this.sliding = false;}, false);
+}
 
+Carousel.prototype = {
+	constructor: Carousel,
+	
+	slidePre: function () {console.log('pre');
+		if(this.current != 0){
+			var curClass = this.pages[this.current].classList,
+				preClass = this.getPre().classList;
+			
+			curClass.remove('middle');
+			preClass.remove('left');
+			curClass.add('transition', 'right');
+			preClass.add('transition', 'middle');
+			
+			this.current--;
+		}
+	},
+
+	slideNext: function () {console.log('next');
+		if(this.current != this.len - 1){
+			var curClass = this.pages[this.current].classList,
+				nextClass = this.getNext().classList;
+				
+			curClass.remove('middle');
+			nextClass.remove('right');
+			curClass.add('transition', 'left');
+			nextClass.add('transition', 'middle');
+			
+			this.current++;
+		}
+	},
+	
+	getPre: function () {
+		return this.current == 0 ? this.pages[this.len-1] : this.pages[this.current-1];
+	},
+	
+	getNext: function () {
+		return this.current == this.len - 1 ? this.pages[0] : this.pages[this.current+1];
+	}
+};
+
+var carousel = new Carousel('carousel', 'pre', 'next');
+
+var w = new Worker('http://www.baidu.com/work.js');
 </script>
 </body>
 </html>
