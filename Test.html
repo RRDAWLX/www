@@ -32,62 +32,138 @@
 <button type="button" id="pre">previous</button>
 <button type="button" id="next">next</button>
 <script>
-function Carousel (carouselId, preId, nextId) {
-	this.carousel = document.getElementById(carouselId);
-	this.pages = document.getElementsByClassName('page');
-	this.len = this.pages.length;
-	this.current = 0;
-	this.sliding = false;
-	
-	document.getElementById(preId).addEventListener('click', this.slidePre.bind(this), false);
-	document.getElementById(nextId).addEventListener('click', this.slideNext.bind(this), false);
-	
-	this.carousel.addEventListener('transitionend', function(){this.sliding = false;}, false);
+var json = {
+	stringify: function (val) {
+		var stringify = '',
+			curVal;
+
+		switch (Object.prototype.toString.call(val)) {
+		case '[object Number]': // number
+		case '[object Boolean]': // boolean
+		case '[object Null]': // null
+			return String(val);
+
+		case '[object String]': // string
+			return '"' + val + '"';
+
+		case '[object Array]': // array
+			stringify += '[';
+
+			for (var i = 0, len = val.length - 1; i < len; i++) {
+				curVal = JSON.stringify(val[i]);
+				stringify += (curVal === undefined ? null : curVal) + ",";
+			}
+			stringify += JSON.stringify(val[i]);
+
+			stringify += ']';
+			return stringify;
+
+		case '[object Object]': // object
+			stringify += '{';
+
+			for (var i in val) {
+				if (val.hasOwnProperty(i)) {
+					curVal = JSON.stringify(val[i]);
+					if (curVal !== undefined) {
+						stringify += '"' + i + '":' + curVal + ',';
+					}
+				}
+			}
+
+			stringify = stringify.slice(0, -1);
+			stringify += '}';
+			return stringify;
+
+		case '[object Date]': // date
+			return '"' + (val.toJSON ? val.toJSON() : val.toString()) + '"';
+
+		case '[object RegExp]': // regular expression
+			return "{}";
+
+		case '[object Undefined]': // undefined
+		case '[object Function]': // function
+			return undefined;
+		}
+	}
 }
 
-Carousel.prototype = {
-	constructor: Carousel,
-	
-	slidePre: function () {console.log('pre');
-		if(this.current != 0){
-			var curClass = this.pages[this.current].classList,
-				preClass = this.getPre().classList;
-			
-			curClass.remove('middle');
-			preClass.remove('left');
-			curClass.add('transition', 'right');
-			preClass.add('transition', 'middle');
-			
-			this.current--;
-		}
-	},
+// 测试代码
+console.log('Number');
+var number = json.stringify(8);
+console.log('stringify:', typeof number, number);
+console.log(JSON.parse(number));
+console.log(number === JSON.stringify(8));
+console.log('-----------------------');
 
-	slideNext: function () {console.log('next');
-		if(this.current != this.len - 1){
-			var curClass = this.pages[this.current].classList,
-				nextClass = this.getNext().classList;
-				
-			curClass.remove('middle');
-			nextClass.remove('right');
-			curClass.add('transition', 'left');
-			nextClass.add('transition', 'middle');
-			
-			this.current++;
-		}
-	},
-	
-	getPre: function () {
-		return this.current == 0 ? this.pages[this.len-1] : this.pages[this.current-1];
-	},
-	
-	getNext: function () {
-		return this.current == this.len - 1 ? this.pages[0] : this.pages[this.current+1];
-	}
-};
+console.log('Boolean');
+var boolean = json.stringify(true);
+console.log('stringify:', typeof boolean, boolean);
+console.log(JSON.parse(boolean));
+console.log(boolean === JSON.stringify(true));
+console.log('-----------------------');
 
-var carousel = new Carousel('carousel', 'pre', 'next');
+console.log('Null');
+var _null = json.stringify(null);
+console.log('stringify:', typeof _null, _null);
+console.log(JSON.parse(_null));
+console.log(_null === JSON.stringify(null));
+console.log('-----------------------');
 
-var w = new Worker('http://www.baidu.com/work.js');
+console.log('Undefined');
+var _undefined = json.stringify(undefined);
+console.log('stringify:', typeof _undefined, _undefined);
+//console.log(JSON.parse(_undefined));
+console.log(_undefined === JSON.stringify(undefined));
+console.log('-----------------------');
+
+console.log('String');
+var string = json.stringify('abc123');
+console.log('stringify:', typeof string, string);
+console.log(JSON.parse(string));
+console.log(string === JSON.stringify('abc123'));
+console.log('-----------------------');
+
+console.log('Array');
+var theArray = [1, undefined, function () {}, 'a'];
+var array = json.stringify(theArray);
+console.log('stringify:', typeof array, array);
+console.log(JSON.parse(array));
+console.log(array === JSON.stringify(theArray));
+console.log('-----------------------');
+
+console.log('Function');
+
+function fnTest() {
+	console.log('function stringify');
+}
+var func = json.stringify(fnTest);
+console.log('stringify:', typeof func, func);
+//  console.log(JSON.parse(func));
+console.log(func === JSON.stringify(fnTest));
+console.log('-----------------------');
+
+console.log('Object');
+var objTest = json.stringify({
+	a: 1
+});
+console.log('stringify', typeof objTest, objTest);
+console.log(objTest === JSON.stringify({
+	a: 1
+}));
+console.log('-----------------------');
+
+console.log('RegExp');
+var RegExp = json.stringify(/^a$/g);
+console.log('stringify', typeof RegExp, RegExp);
+console.log(RegExp === JSON.stringify(/^a$/g));
+console.log('-----------------------');
+
+console.log('Date');
+var theDate = new Date();
+var date = json.stringify(theDate);
+console.log('stringify', typeof date, date);
+console.log(date === JSON.stringify(theDate));
+console.log('-----------------------');
 </script>
 </body>
 </html>
