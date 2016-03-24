@@ -1,185 +1,103 @@
 <!Doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>Test</title>
-<script src="js/jquery.js"></script>
-<style>
-* {margin: 0; padding: 0; border: 0;}
-
-#carousel {position:relative; margin:auto; width:300px; height:200px; overflow:hidden; list-style:none;}
-#carousel > li {position:absolute; width:100%; height:100%;}
-.page1 {background:red;}
-.page2 {background:green;}
-.page3 {background:orange;}
-
-.transition {transition:left 0.8s;}
-.left {left:-100%;}
-.middle {left:0;}
-.right {left:100%;}
-
-</style>
+	<meta charset="utf-8">
+	<title>Test</title>
+	<script src="js/jquery.js"></script>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+		
+		#carousel{
+			position: relative;
+			width: 300px;
+			height: 200px;
+			margin: auto;
+			overflow: hidden;
+		}
+		
+		#carousel > ul {
+			list-style: none;
+			position: relative;
+			left: 0;
+			transition: left 0.5s;
+		}
+		
+		#carousel > ul > li {
+			position: relative;
+			float: left;
+			width: 300px;
+			height: 200px;
+		}
+		
+		.page1 {
+			background: red;
+		}
+		
+		.page2 {
+			background: green;
+		}
+		
+		.page3 {
+			background: orange;
+		}
+		
+	</style>
 
 </head>
 
 <body>
-<ul id="carousel">
-  <li class="page page1 middle">1</li>
-  <li class="page page2 right">2</li>
-  <li class="page page3 right">3</li>
-</ul>
 
-<button type="button" id="pre">previous</button>
-<button type="button" id="next">next</button>
-<script>
-/**
- * JSON 值可以是：
- * 数字（整数或浮点数）
- * 字符串（在双引号中）
- * 逻辑值（true 或 false）
- * 数组（在方括号中）
- * 对象（在花括号中）
- * null
- */
+	<div id="carousel">
+		<ul>
+			<li class="page page1 middle">1</li>
+			<li class="page page2 right">2</li>
+			<li class="page page3 right">3</li>
+		</ul>
+	</div>
 
-var json = {
-	stringify: function (val) {
-		var stringify = '',
-			curVal;
-
-		if (val === null) {		// null
-			return String(val);
+	<button type="button" id="pre">previous</button>
+	<button type="button" id="next">next</button>
+	<script>
+		function Carousel (id, preId, nextId) {
+			this.container = document.querySelector(id + '>ul');
+			this.pages = document.querySelectorAll(id+'>ul>li');
+			this.current = 0;
+			this.len = this.pages.length;
+			this.width = parseFloat(window.getComputedStyle(document.querySelector(id)).width);
+			this.container.style.width = this.len * this.width + 'px';
+			
+			
+			document.querySelector(preId).addEventListener('click', this.pre.bind(this), false);
+			document.querySelector(nextId).addEventListener('click', this.next.bind(this),false);
 		}
 		
-		switch (typeof val) {
-			case 'number': // number
-			case 'boolean': // boolean
-				return String(val);
-	
-			case 'string': // string
-				return '"' + val + '"';
+		Carousel.prototype = {
+			constructor: Carousel,
+														   
+			next: function () {
+				this.current++;
+				if(this.current >= this.len){
+					this.current = 0;
+				}
+				this.container.style.left = '-' + (this.current * this.width) + 'px';
+			},
 			
-			case 'undefined': // undefined
-			case 'function': // function
-				return undefined;
-		}
-	
-		switch (Object.prototype.toString.call(val)) {
-			case '[object Array]': // array
-				stringify += '[';
-	
-				for (var i = 0, len = val.length - 1; i < len; i++) {
-					curVal = json.stringify(val[i]);
-					stringify += (curVal === undefined ? null : curVal) + ",";
+			pre: function () {
+				this.current--;
+				if(this.current < 0){
+					this.current = this.len - 1;
 				}
-				stringify += json.stringify(val[i]);
-	
-				stringify += ']';
-				return stringify;
-				
-			case '[object Date]': // date
-				return '"' + (val.toJSON ? val.toJSON() : val.toString()) + '"';
-	
-			case '[object RegExp]': // regular expression
-				return "{}";
-	
-			case '[object Object]': // object
-				stringify += '{';
-	
-				for (var i in val) {
-					if (val.hasOwnProperty(i)) {
-						curVal = json.stringify(val[i]);
-						if (curVal !== undefined) {
-							stringify += '"' + i + '":' + curVal + ',';
-						}
-					}
-				}
-	
-				stringify = stringify.slice(0, -1);
-				stringify += '}';
-				return stringify;
+				this.container.style.left = '-' + (this.current * this.width) + 'px';
+			}
 		}
-	}
-}
-
-// 测试代码
-console.log('Number');
-var number = json.stringify(8);
-console.log('stringify:', typeof number, number);
-//console.log(JSON.parse(number));
-//console.log(number === JSON.stringify(8));
-console.log('-----------------------');
-
-console.log('Boolean');
-var boolean = json.stringify(true);
-console.log('stringify:', typeof boolean, boolean);
-//console.log(JSON.parse(boolean));
-//console.log(boolean === JSON.stringify(true));
-console.log('-----------------------');
-
-console.log('Null');
-var _null = json.stringify(null);
-console.log('stringify:', typeof _null, _null);
-//console.log(JSON.parse(_null));
-//console.log(_null === JSON.stringify(null));
-console.log('-----------------------');
-
-console.log('Undefined');
-var _undefined = json.stringify(undefined);
-console.log('stringify:', typeof _undefined, _undefined);
-//console.log(JSON.parse(_undefined));
-//console.log(_undefined === JSON.stringify(undefined));
-console.log('-----------------------');
-
-console.log('String');
-var string = json.stringify('abc123');
-console.log('stringify:', typeof string, string);
-//console.log(JSON.parse(string));
-//console.log(string === JSON.stringify('abc123'));
-console.log('-----------------------');
-
-console.log('Array');
-var theArray = [1, undefined, function () {}, 'a'];
-var array = json.stringify(theArray);
-console.log('stringify:', typeof array, array);
-//console.log(JSON.parse(array));
-//console.log(array === JSON.stringify(theArray));
-console.log('-----------------------');
-
-console.log('Function');
-
-function fnTest() {
-	console.log('function stringify');
-}
-var func = json.stringify(fnTest);
-console.log('stringify:', typeof func, func);
-//  console.log(JSON.parse(func));
-//console.log(func === JSON.stringify(fnTest));
-console.log('-----------------------');
-
-console.log('Object');
-var objTest = json.stringify({
-	a: 1
-});
-console.log('stringify', typeof objTest, objTest);
-//console.log(objTest === JSON.stringify({
-//	a: 1
-//}));
-console.log('-----------------------');
-
-console.log('RegExp');
-var RegExp = json.stringify(/^a$/g);
-console.log('stringify', typeof RegExp, RegExp);
-//console.log(RegExp === JSON.stringify(/^a$/g));
-console.log('-----------------------');
-
-console.log('Date');
-var theDate = new Date();
-var date = json.stringify(theDate);
-console.log('stringify', typeof date, date);
-//console.log(date === JSON.stringify(theDate));
-console.log('-----------------------');
-
-</script>
+		
+		var carousel = new Carousel('#carousel', '#pre', '#next');
+	</script>
 </body>
+
 </html>
