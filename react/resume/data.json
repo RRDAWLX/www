@@ -1,0 +1,14 @@
+{
+	"basicInfo" : {
+		"texts": [{
+				"name": "姓名",
+				"value": "王龙祥"
+			},
+			{
+				"name": "出生年月",
+				"value": "1991年7月"
+			}
+		],
+		"imgsrc": '/img/idphote.jpg'
+	}
+}

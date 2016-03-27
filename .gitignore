@@ -44,6 +44,6 @@ Temporary Items
 libs/
 
 # gulp项目中非项目代码、资源文件
-/gulp/node_modules/
+node_modules/
 
 _notes/
