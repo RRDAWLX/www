@@ -29,6 +29,6 @@ var data = {
 				"value": "武汉大学  本科  电子商务  2009.09——2013.06"
 			}
 		],
-		"imgsrc": './img/idphoto.jpg'
+		"imgsrc": ''
 	}
 };
