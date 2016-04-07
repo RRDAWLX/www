@@ -60,6 +60,7 @@
 		</ul>
 	</div>
 
+
 	<button type="button" id="pre">previous</button>
 	<button type="button" id="next">next</button>
     
@@ -110,6 +111,15 @@
 		
 		var carousel = new Carousel('#carousel', '#pre', '#next');
 		
+		
+		var obj = {
+			valueOf: function () {
+				return 'valueOf';
+			},
+			toString: function () {
+				return 'toString';
+			}
+		};
 		
 	</script>
 </body>
