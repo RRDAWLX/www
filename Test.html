@@ -63,6 +63,18 @@
 
 	<button type="button" id="pre">previous</button>
 	<button type="button" id="next">next</button>
+    
+    <style>
+	  .div {width:200px; height:200px; float:left;}
+	  #div1 {background:green;}
+	  #div2 {background:red; margin:-10px; z-index:10; position:relative;}
+	  #div3 {background:blue;}
+	</style>
+    
+    <div id="div1" class="div"></div>
+    <div id="div2" class="div"></div>
+    <div id="div3" class="div"></div>
+    
 	<script>
 		function Carousel (id, preId, nextId) {
 			this.container = document.querySelector(id + '>ul');
