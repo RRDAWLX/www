@@ -1,5 +1,25 @@
 
 /* 基本信息 BasicInfo */
+var BasicInfo = React.createClass({
+	render: function () {
+		return (
+			<div className='basic-info'>
+				<BasicImg imgsrc={this.props.data.imgsrc} />
+				<BasicTexts data={this.props.data.texts} />
+			</div>
+		);
+	}
+});
+
+var BasicTexts = React.createClass({
+	render: function () {
+		var textItems = this.props.data.map(function(item, idx){
+			return (<BasicTextItem data={item} key={idx} />);
+		});
+		
+		return (<div className="basic-texts">{textItems}</div>);
+	}
+});
 
 var BasicTextItem = React.createClass({
 	render: function () {
@@ -12,46 +32,104 @@ var BasicTextItem = React.createClass({
 	}
 });
 
-var BasicTexts = React.createClass({
-	render: function () {
-		var textItems = this.props.data.map(function(item){
-			return (<BasicTextItem data={item} />);
-		});
-		
-		return (<div className="basic-texts">{textItems}</div>);
-	}
-});
-
 var BasicImg = React.createClass({
 	render: function () {
 		return (<div className='basic-img'><img src={this.props.imgsrc} /></div>);
 	}
 });
+			
+			
+/* 工作经历 Experience */
+var Experience = React.createClass({
+	render: function () {
+		var data = this.props.data,
+			company = data.company,
+			duty = data.duty,
+			projects = data.projects;
 
-var BasicInfo = React.createClass({
+		projects = projects.map(function(project, idx){
+			return (<Project data={project} order={idx} key={idx} />);
+		});
+
+		return (
+			<div className='experience'>
+				<div className='expe-title'>{'工作经历' + (this.props.order + 1)}</div>
+				<Company data={company} />
+				<Duty data={duty} />
+				{projects}
+			</div>
+		);
+	}
+});
+
+var Company = React.createClass({
 	render: function () {
 		return (
-			<div className='basic-info'>
-				<BasicTexts data={this.props.data.texts} />
-				<BasicImg imgsrc={this.props.data.imgsrc} />
+			<div className='company'>
+				<span className='company-name'>{this.props.data.name}</span>
+				<span className='company-period'>{this.props.data.period}</span>
+			</div>
+		);
+	}
+});
+
+var Duty = React.createClass({
+	render: function () {
+		return (<div className='expe-duty'><span className='expe-duty-title'>工作内容:</span>{this.props.data}</div>);
+	}
+});
+
+var Project = React.createClass({
+	render: function () {
+		var data = this.props.data;
+
+		return (
+			<div className='project'>
+				<div className='project-name'>{'项目经历' + (this.props.order + 1) + ':' + data.name}</div>
+				<div className='project-content'>{data.content}</div>
+				<div className='project-duty'>{data.duty}</div>
 			</div>
 		);
 	}
 });
 			
-			
-/* 工作经历 Experiences */
-			
 
 /* 专业技能 Skills */
+var Skills = React.createClass({
+	render: function () {
+		var skills = this.props.data.map(function(skill, idx){
+			return (<SkillItem data={skill} order={idx} key={idx} />);
+		});
+
+		return (
+			<div className='skills'>
+				<div className='skills-title'>专业技能</div>
+				{skills}
+			</div>
+		);
+	}
+});
+
+var SkillItem = React.createClass({
+	render: function () {
+		return (<div className='skill-item'>{this.props.order + 1 + '、' + this.props.data}</div>);
+	}
+});
 
 			
 /* 简历 Resume */
 var Resume = React.createClass({
 	render: function () {
+		var data = this.props.data,
+			experiences = data.experiences.map(function(experience, idx){
+				return (<Experience data={experience} order={idx} key={idx} />);
+			});
+
 		return (
 			<div className='resume'>
-				<BasicInfo data={this.props.data.basicInfo} />
+				<BasicInfo data={data.basicInfo} />
+				{experiences}
+				<Skills data={data.skills} />
 			</div>
 		);
 	}
@@ -61,10 +139,7 @@ var Resume = React.createClass({
 			
 /* render */
 ReactDOM.render(
-	<Resume data={data} />,
+	<Resume data={data} class='resume' />,
 	document.getElementById('main')
 );
-
-			
-			
-			
+	
