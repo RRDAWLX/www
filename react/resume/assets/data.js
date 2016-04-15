@@ -70,9 +70,10 @@ var data = {
 	skills: [
 		'HTML(5) 、 CSS(3) 、 JavaScript、 jQuery、 Zepto：能够纯手写动画特效丰富、兼容性和性能良好的 PC 端和移动端页面，根据不同浏览器渐进增强，掌握 HTML5 和 CSS3 常用新特性，原生 JS 和 jQuery 能力都较好，有丰富的前后端协同开发经验。',
 		'Bootstrap：熟练掌握 Bootstrap 框架，能够用 Bootstrap 快速开发。',
-		'Git：能够熟练使用 Git 进行项目协作开发。',
+		'React.js：基于react.js的Web版简历，http://rrdawlx.site/react/resume/resume.html，或者http://qxw1590700146.my3w.com/react/resume/resume.html。',
 		'Gulp.js：掌握 Gulp 的 task、 src、 dest、 watch 接口使用，能够搭建自动化项目。',
 		'Require.js：能够用 require.js 进行模块化开发。',
+		'Git：能够熟练使用 Git 进行项目协作开发。',
 		'PHP：能够获取请求数据，连接数据库，操作数据，数据输出，响应请求；有使用 Blade 模板引擎经验。',
 		'SQL：创建数据库、数据表，增、删、改、查数据等基本操作都掌握。',
 		'Java + Android： 大学期间学习过多年 Java，学习过 Android 开发，对 Android 平台有一定了解，简单研究过 Hybrid 开发。'

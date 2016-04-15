@@ -1,7 +1,7 @@
 * {margin: 0; padding: 0; border: 0;}
-html {font: 14px/1.5em "Microsoft YaHei";}
+html {font: 14px/1.5em "Microsoft YaHei"; word-break:break-all;}
 
-.resume {max-width: 960px; margin: auto; padding: 10px; box-sizing:border-box;}
+.resume {max-width: 800px; margin: auto; padding: 10px; box-sizing:border-box;}
 
 .basic-info {overflow: hidden;}
 .basic-img {float:right; width:100px;}
