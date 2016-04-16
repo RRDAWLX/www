@@ -119,8 +119,39 @@ var SkillItem = React.createClass({
 			
 /* 简历 Resume */
 var Resume = React.createClass({
+	getInitialState: function () {
+		return {
+			data: {
+				"basicInfo" : {
+					"texts": [],
+					"imgsrc": ''
+				},
+
+				experiences: [],
+
+				skills: []
+			}
+		}
+	},
+
+	componentDidMount: function () {
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if(xhr.readyState == 4){
+				if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+					eval(xhr.responseText);
+					this.setState({data: data});
+				}else {
+					alert('请求失败：' + xhr.status);
+				}
+			}
+		}.bind(this);
+		xhr.open('get', this.props.url, true);
+		xhr.send(null);
+	},
+
 	render: function () {
-		var data = this.props.data,
+		var data = this.state.data,
 			experiences = data.experiences.map(function(experience, idx){
 				return (<Experience data={experience} order={idx} key={idx} />);
 			});
@@ -139,7 +170,7 @@ var Resume = React.createClass({
 			
 /* render */
 ReactDOM.render(
-	<Resume data={data} class='resume' />,
+	<Resume url='assets/data.js' class='resume' />,
 	document.getElementById('main')
 );
 	
