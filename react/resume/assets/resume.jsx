@@ -23,10 +23,13 @@ var BasicTexts = React.createClass({
 
 var BasicTextItem = React.createClass({
 	render: function () {
+		var data = this.props.data;
+		
 		return (
 			<div className='basic-text-item'>
-				<span className='basic-text-name'>{this.props.data.name + ':'}</span>
-				<span className='basic-text-value'>{this.props.data.value}</span>
+				<i className={data.icon}></i>
+				<span className='basic-text-name'>{data.name + ':'}</span>
+				<span className='basic-text-value'>{data.value}</span>
 			</div>
 		);
 	}
@@ -53,7 +56,10 @@ var Experience = React.createClass({
 
 		return (
 			<div className='experience'>
-				<div className='expe-title'>{'工作经历' + (this.props.order + 1)}</div>
+				<div className='expe-title'>
+					<i className='icon-desktop'></i>
+					{'工作经历' + (this.props.order + 1)}
+				</div>
 				<Company data={company} />
 				<Duty data={duty} />
 				{projects}
@@ -85,7 +91,10 @@ var Project = React.createClass({
 
 		return (
 			<div className='project'>
-				<div className='project-name'>{'项目经历' + (this.props.order + 1) + ':' + data.name}</div>
+				<div className='project-name'>
+					<i className='icon-folder-open'></i>
+					{'项目经历' + (this.props.order + 1) + ':' + data.name}
+				</div>
 				<div className='project-content'>{data.content}</div>
 				<div className='project-duty'>{data.duty}</div>
 			</div>
@@ -103,7 +112,7 @@ var Skills = React.createClass({
 
 		return (
 			<div className='skills'>
-				<div className='skills-title'>专业技能</div>
+				<div className='skills-title'><i className='icon-wrench'></i>专业技能</div>
 				{skills}
 			</div>
 		);

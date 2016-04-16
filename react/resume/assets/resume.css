@@ -3,6 +3,7 @@ html {font: 14px/1.5em "Microsoft YaHei"; word-break:break-all;}
 
 .resume {max-width: 800px; margin: auto; padding: 10px; box-sizing:border-box;}
 
+/* 基本信息 */
 .basic-info {overflow: hidden;}
 .basic-img {float:right; width:100px;}
 .basic-img img {max-width: 100%;}
@@ -10,15 +11,20 @@ html {font: 14px/1.5em "Microsoft YaHei"; word-break:break-all;}
 .basic-text-item {float: left; width: 50%; padding: 5px 0;}
 .basic-text-item:last-of-type {width:100%;}
 .basic-text-value {margin-left:15px;}
+.basic-text-item [class^="icon-"] {display:inline-block; width:1.5em; text-align: center;}
 
+/* 工作经历、专业技能 */
 .experience, .skills {margin-top: 30px;}
 .expe-title, .skills-title {border-bottom:solid 2px #000; font-size: 16px; font-weight: bold; line-height: 1.5em;}
+.expe-title [class^="icon-"], .skills-title [class^="icon-"] {display: inline-block; width: 1.5em;}
 .company-period {margin-left:15px;}
 .expe-duty-title {margin-right:5px; font-weight: bold;}
 
 .project {margin-top: 15px;}
 .project-name {font-weight: bold;}
+.project-name [class^="icon-"] {display:inline-block; width:1.5em;}
 
+/* 手机自适应 */
 @media screen and (max-width:509px){
 	.basic-img {display:flex; justify-content:center; align-items:center; float: none; width: 150px; height: 150px; margin: auto; border-radius:50%; overflow:hidden;}
 	.basic-texts {float: left; width:100%; margin: 0;}

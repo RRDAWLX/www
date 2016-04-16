@@ -23,10 +23,13 @@ var BasicTexts = React.createClass({displayName: "BasicTexts",
 
 var BasicTextItem = React.createClass({displayName: "BasicTextItem",
 	render: function () {
+		var data = this.props.data;
+		
 		return (
 			React.createElement("div", {className: "basic-text-item"}, 
-				React.createElement("span", {className: "basic-text-name"}, this.props.data.name + ':'), 
-				React.createElement("span", {className: "basic-text-value"}, this.props.data.value)
+				React.createElement("i", {className: data.icon}), 
+				React.createElement("span", {className: "basic-text-name"}, data.name + ':'), 
+				React.createElement("span", {className: "basic-text-value"}, data.value)
 			)
 		);
 	}
@@ -53,7 +56,10 @@ var Experience = React.createClass({displayName: "Experience",
 
 		return (
 			React.createElement("div", {className: "experience"}, 
-				React.createElement("div", {className: "expe-title"}, '工作经历' + (this.props.order + 1)), 
+				React.createElement("div", {className: "expe-title"}, 
+					React.createElement("i", {className: "icon-desktop"}), 
+					'工作经历' + (this.props.order + 1)
+				), 
 				React.createElement(Company, {data: company}), 
 				React.createElement(Duty, {data: duty}), 
 				projects
@@ -85,7 +91,10 @@ var Project = React.createClass({displayName: "Project",
 
 		return (
 			React.createElement("div", {className: "project"}, 
-				React.createElement("div", {className: "project-name"}, '项目经历' + (this.props.order + 1) + ':' + data.name), 
+				React.createElement("div", {className: "project-name"}, 
+					React.createElement("i", {className: "icon-folder-open"}), 
+					'项目经历' + (this.props.order + 1) + ':' + data.name
+				), 
 				React.createElement("div", {className: "project-content"}, data.content), 
 				React.createElement("div", {className: "project-duty"}, data.duty)
 			)
@@ -103,7 +112,7 @@ var Skills = React.createClass({displayName: "Skills",
 
 		return (
 			React.createElement("div", {className: "skills"}, 
-				React.createElement("div", {className: "skills-title"}, "专业技能"), 
+				React.createElement("div", {className: "skills-title"}, React.createElement("i", {className: "icon-wrench"}), "专业技能"), 
 				skills
 			)
 		);
