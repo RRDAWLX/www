@@ -2,127 +2,83 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<title>Test</title>
-	<script src="js/jquery.js"></script>
-	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			border: 0;
-		}
-		
-		#carousel{
-			position: relative;
-			width: 300px;
-			height: 200px;
-			margin: auto;
-			overflow: hidden;
-		}
-		
-		#carousel > ul {
-			list-style: none;
-			position: relative;
-			left: 0;
-			transition: left 0.5s;
-		}
-		
-		#carousel > ul > li {
-			position: relative;
-			float: left;
-			width: 300px;
-			height: 200px;
-		}
-		
-		.page1 {
-			background: red;
-		}
-		
-		.page2 {
-			background: green;
-		}
-		
-		.page3 {
-			background: orange;
-		}
-		
-	</style>
-    <link rel="stylesheet" href="Font-Awesome/css/font-awesome.min.css" />
+    <meta charset="utf-8">
+    <title>Test</title>
+    <script src="js/jquery.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        html {
+            font-size: 16px;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: red;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+        #div11 {
+            background: green;
+            display: inline-block;
+        }
+        #div2 {
+            float: left;
+            width: 100px;
+            height: 100px;
+            background: blue;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%
+        }
+
+        table, td {
+            border: 1px solid black;
+        }
+
+        td {
+            text-align: center;
+            height: 100px;
+        }
+
+        td span {
+            display: inline-block;
+        }
+        
+    </style>
 
 </head>
 
 <body>
+    <div id="div1">
+        <span id="div11">adbdfd</span>
+    </div>
 
-	<div id="carousel">
-		<ul>
-			<li class="page page1 middle icon-play">1</li>
-			<li class="page page2 right">2</li>
-			<li class="page page3 right">3</li>
-		</ul>
-	</div>
+    <div id="div2"></div>
+
+    <table>
+        <tbody>
+            <tr>
+                <td><span>abgd</span></td>
+                <td><span>adjosif</span><br/><span>asdfs</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="" target="_top">刷新</a>
+
+<script>
 
 
-	<button type="button" id="pre">previous</button>
-	<button type="button" id="next">next</button>
-    
-    <style>
-	  .div {width:200px; height:200px; float:left;}
-	  #div1 {background:green;}
-	  #div2 {background:red; margin:-10px; z-index:10; position:relative;}
-	  #div3 {background:blue;}
-	</style>
-    
-    <div id="div1" class="div"></div>
-    <div id="div2" class="div"></div>
-    <div id="div3" class="div"></div>
-    
-	<script>
-		function Carousel (id, preId, nextId) {
-			this.container = document.querySelector(id + '>ul');
-			this.pages = document.querySelectorAll(id+'>ul>li');
-			this.current = 0;
-			this.len = this.pages.length;
-			this.width = parseFloat(window.getComputedStyle(document.querySelector(id)).width);
-			this.container.style.width = this.len * this.width + 'px';
-			
-			
-			document.querySelector(preId).addEventListener('click', this.pre.bind(this), false);
-			document.querySelector(nextId).addEventListener('click', this.next.bind(this),false);
-		}
-		
-		Carousel.prototype = {
-			constructor: Carousel,
-														   
-			next: function () {
-				this.current++;
-				if(this.current >= this.len){
-					this.current = 0;
-				}
-				this.container.style.left = '-' + (this.current * this.width) + 'px';
-			},
-			
-			pre: function () {
-				this.current--;
-				if(this.current < 0){
-					this.current = this.len - 1;
-				}
-				this.container.style.left = '-' + (this.current * this.width) + 'px';
-			}
-		}
-		
-		var carousel = new Carousel('#carousel', '#pre', '#next');
-		
-		
-		var obj = {
-			valueOf: function () {
-				return 'valueOf';
-			},
-			toString: function () {
-				return 'toString';
-			}
-		};
-		
-	</script>
+
+</script>
 </body>
 
 </html>
