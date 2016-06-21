@@ -27,6 +27,6 @@ gulp.watch('./src/*.js', ['uglifyjs']).on('change', function(event){
 });
 
 // 监视es2015文件
-gulp.watch('./src/es2015/*.js', ['es2015']).on('change', function(event){
+/*gulp.watch('./src/es2015/*.js', ['es2015']).on('change', function(event){
 	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-});
+});*/

@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width" />
     <title>Test</title>
-    <script src="js/jquery.js"></script>
     <style>
         * {
             margin: 0;
@@ -13,43 +13,12 @@
         }
         html {
             font-size: 16px;
+            height: 100%;
+            border:5px solid black;
         }
 
-        #div1 {
-            width: 100px;
-            height: 100px;
-            background: red;
-            display: table-cell;
-            text-align: center;
-            vertical-align: middle;
-        }
-        #div11 {
-            background: green;
-            display: inline-block;
-        }
-        #div2 {
-            float: left;
-            width: 100px;
-            height: 100px;
-            background: blue;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 50%
-        }
-
-        table, td {
-            border: 1px solid black;
-        }
-
-        td {
-            text-align: center;
-            height: 100px;
-        }
-
-        td span {
-            display: inline-block;
+        body {
+            width: 100%;
         }
         
     </style>
@@ -57,27 +26,11 @@
 </head>
 
 <body>
-    <div id="div1">
-        <span id="div11">adbdfd</span>
-    </div>
-
-    <div id="div2"></div>
-
-    <table>
-        <tbody>
-            <tr>
-                <td><span>abgd</span></td>
-                <td><span>adjosif</span><br/><span>asdfs</span></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="" target="_top">刷新</a>
-
+<div></div>
+<div></div>
+<script src="static/jquery.min.js"></script>
 <script>
-
-
-
+console.log($('div'));
 </script>
 </body>
 

@@ -17,36 +17,51 @@ div {height:300px; background-color:#333; color:white;}
 <div id="touch"></div>
 
 <script>
-$('#touch').on({
-	tap: function(){
-		console.log('tap');
+
+
+var O = {
+	flag: false,
+
+	a: function () {
+		var that = this;
+
+		return $.ajax({
+			url: 'ajax.php',
+			type: 'get',
+			dataType: 'json',
+			success: function (res) {
+				that.flag = true;
+				console.log('success', that.flag);
+			},
+			error: function (x,s,e){
+				console.log('error', that.flag);
+			},
+			complete: function () {
+				console.log('a complete', that.flag);
+			}
+		});
 	},
-	singleTap: function(){
-		console.log('single tap');
+
+	b: function () {
+		var that = this;
+
+		return $.ajax({
+			url: 'ajax.php',
+			type: 'get',
+			dataType: 'json'
+		}).always(function(){
+			console.log('b', that.flag);
+		});
 	},
-	doubleTap: function(){
-		console.log('double tap');
-	},
-	longTap: function(){
-		console.log('long tap');
-	},
-	swipe: function(){
-		console.log('swipe');
-		alert("Don't push me again, fuck!");
-	},
-	swipeLeft: function(){
-		console.log('swipe left');
-	},
-	swipeRight: function(){
-		console.log('swipe right');
-	},
-	swipeUp: function(){
-		console.log('swipe up');
-	},
-	swipeDown: function(){
-		console.log('swipe down');
+
+	c: function () {
+		console.log('c', this.flag);
 	}
-});
+}
+
+O.a()
+.then($.proxy(O.b, O), $.proxy(O.b, O))
+.always($.proxy(O.c, O));
 </script>
 </body>
 </html>
