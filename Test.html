@@ -12,23 +12,40 @@
             border: 0;
         }
         html {
-            font-size: 16px;
+font-size: 16px;
             height: 100%;
             border:5px solid black;
         }
 
-        body {
-            width: 100%;
+        body {width: 100%;
         }
-        
+
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+
     </style>
 
 </head>
 
 <body>
-<div></div>
+	<div></div>
+
 <script src="static/jquery.min.js"></script>
 <script>
+$.ajax({
+  url: 'index.php',
+  type: 'post',
+  data: {arr: [{a:1, b:2}]},
+  dataType: 'json',
+  traditional:true,
+  succee: function (res) {
+    console.log(res);
+  }
+});
+
 </script>
 </body>
 
