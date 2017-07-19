@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+    <title>heatmap</title>
+
+    <style>
+        canvas {
+            background-image: url('./mapbg.jpg');
+        }
+    </style>
+</head>
+
+<body>
+    <canvas width="300" height="300"></canvas>
+    <button id="reset">reset</button>
+
+    <script>
+    let canvas = document.querySelector('canvas'),
+        ctx = canvas.getContext('2d');
+    ctx.globalAlpha = 0.2;
+    ctx.globalCompositeOperation = 'lighter';
+
+    let colors = ["#072933", "#2E4045", "#8C593B", "#B2814E", "#FAC268", "#FAD237"],
+        points = {},
+        x = -1,
+        y = -1;
+
+    canvas.addEventListener('mousemove', e => {
+        x = e.clientX - e.target.offsetLeft;
+        y = e.clientY - e.target.offsetTop;
+        addToPoints(x, y);
+    }, false);
+
+    function addToPoints(x, y) {
+        let key = `(${x}, ${y})`,
+            point = points[key];
+        if (point === undefined) {
+            points[key] = 1;
+        } else if (point == 10) {
+            return;
+        } else {
+            points[key] = ++point;
+        }
+
+        drawPoint(x, y, point);
+    }
+
+    function drawPoint(x, y, radius) {
+        ctx.beginPath();
+        ctx.arc(x, y, Math.sqrt(radius) * 6, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fillStyle = colors[Math.floor(radius / 2)];
+        ctx.fill();
+    }
+
+    function aggravate() {
+        if (x != -1) {
+            addToPoints(x, y);
+        }
+        // setTimeout(aggravate, 100);
+        requestAnimationFrame(aggravate);
+    }
+
+    aggravate();
+
+    document.querySelector('#reset').addEventListener('click', () => {
+        points = {};
+        x = -1;
+        y = -1;
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    }, false);
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>渐变环</title>
+
+        <style>
+        * {
+            margin: 0; border: 0;
+        }
+        .loop {
+
+        }
+        </style>
+    </head>
+    <body>
+        <canvas id="loop" width="300" height="300"></canvas>
+
+        <script>
+        let ctx = document.getElementById('loop').getContext('2d');
+        ctx.save();
+        ctx.translate(150, 150);
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        let gradient=ctx.createLinearGradient(0,0,0,100);
+        gradient.addColorStop("0","magenta");
+        gradient.addColorStop("0.5","blue");
+        gradient.addColorStop("1.0","red");
+        ctx.strokeStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(0, 0, 100, - Math.PI / 2, Math.PI * 1.4);
+        ctx.stroke();
+        ctx.closePath();
+        </script>
+    </body>
+</html>
