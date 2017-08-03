@@ -11,17 +11,17 @@
             padding: 0;
             border: 0;
         }
-        
+
         html {
             font-size: 16px;
             height: 100%;
             border: 5px solid black;
         }
-        
+
         body {
             width: 100%;
         }
-        
+
         div {
             width: 200px;
             height: 200px;
@@ -32,20 +32,38 @@
 </head>
 
 <body>
-    <div>abc</div>
+    <div id="player">abc</div>
 
-    <script src="static/jquery.min.js"></script>
+    <script src="static/web-animations.js"></script>
     <script>
-        $('div').on('click', () => {
-            console.log('click div');
+        let ele = document.querySelector('div');
+        let keyframes = [
+            {backgroundColor: '#ff00ff'},
+            {backgroundColor: '#00ff00'}
+        ];
+        let timing = {
+            duration: 1000,
+            iterations: 1,
+            direction: 'alternate'
+        };
+
+        let effect = new KeyframeEffect(ele, keyframes, timing);
+        let animation = new Animation(effect, document.timeline);
+        animation.ready.then(() => {
+            console.log('ready');
         });
+        animation.finished.then(() => {
+            console.log('finished');
+        });
+        animation.onfinish = function() {
+            console.log('animation finished');
+            animation.finish();
+        }
+        // animation.play();
 
-
-        a++;
-
-
-
-        console.log('end');
+        document.querySelector('div').animate(keyframes, timing).finished.then(() => {
+            console.log('finished');
+        });
     </script>
 </body>
 
