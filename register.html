@@ -23,7 +23,7 @@
           },
           dataType: 'json'
         }).then((res) => {
-          if (res && res.status === 1 && data && data.success) {
+          if (res && res.status === 1 && res.data && res.data.success) {
             alert('注册成功');
           } else {
             alert('注册失败');
