@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>upload</title>
+  </head>
+  <body>
+    <input type="file" name="file" />
+    <button id="upload">upload</button>
+
+    <!--<form method="post" action="/api/user/upload" enctype="multipart/form-data">
+      <input type="text" name="user" />
+      <input type="file" name="file" />
+      <button type="submit">submit</button>
+    </form>-->
+    <img src="" id="img" />
+
+    <script src="/static/static/jquery.min.js"></script>
+    <script>
+      $('#upload').on('click', () => {
+        let formData = new FormData();
+        formData.append('user', 'rrdawlx');
+        formData.append('files', $('[name=file]')[0].files[0]);
+        $.ajax({
+          url: '/api/user/upload',
+          type: 'post',
+          data: formData,
+          contentType: false,
+          processData: false
+        }).then((res) => {
+          if (res && res.status === 1 && res.error === 0) {
+            console.log('yo')
+            $('#img').attr('src', res.data.imageUrl);
+          } else {
+            alert('上传失败');
+          }
+        }, () => {
+          alert('上传失败');
+        });
+      });
+    </script>
+  </body>
+</html>
