@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>article</title>
+  </head>
+  <body>
+    <script src="/static/static/jquery.min.js"></script>
+    <script>
+      $.ajax({
+        url: '/api/article',
+        type: 'post',
+        data: {
+          title: 'article title',
+          content: '<p>article content</p>',
+          type: 'draft'
+        },
+        dataType: 'json'
+      }).then(res => {
+        console.log(res);
+      }, () => {
+        alert('failed');
+      });
+    </script>
+  </body>
+</html>

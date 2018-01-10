@@ -22,7 +22,7 @@
         formData.append('user', 'rrdawlx');
         formData.append('files', $('[name=file]')[0].files[0]);
         $.ajax({
-          url: '/api/user/upload',
+          url: '/api/upload',
           type: 'post',
           data: formData,
           contentType: false,
