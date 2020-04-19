@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>article</title>
+  </head>
+  <body>
+    <div>
+      title: <input type="text" id="title" />
+    </div>
+    <div>
+      content: <textarea id="content"></textarea>
+    </div>
+    <div>
+      type: <select id="type">
+        <option value="draft">draft</option>
+        <option value="issue">issue</option>
+      </select>
+    </div>
+    <div>
+      article id: <input type="text" id="article" />
+    </div>
+
+    <button id="new">new</button>
+    <button id="update">update</button>
+    <button id="delete">delete</button>
+    <button id="get">get</button>
+
+    <script src="/static/static/jquery.min.js"></script>
+    <script>
+      $('#new').on('click', () => {
+        $.ajax({
+          url: '/api/article',
+          type: 'post',
+          data: {
+            title: $('#title').val(),
+            content: $('#content').val(),
+            type: $('#type').val()
+          },
+          dataType: 'json'
+        }).then(res => {
+          if (res.status === 1 && res.error === 0) {
+            $('#article').val(res.data.id);
+          } else {
+            alert('failed');
+          }
+        }, () => {
+          alert('failed');
+        });
+      });
+
+      $('#update').on('click', () => {
+        $.ajax({
+          url: '/api/article/' + $('#article').val(),
+          type: 'put',
+          data: {
+            title: $('#title').val(),
+            content: $('#content').val(),
+            type: $('#type').val()
+          },
+          dataType: 'json'
+        }).then(res => {
+          if (res.status === 1 && res.error === 0) {
+            alert('success');
+          } else {
+            alert('failed');
+          }
+        }, () => {
+          alert('failed');
+        });
+      });
+
+      $('#delete').on('click', () => {
+        $.ajax({
+          url: '/api/article/' + $('#article').val(),
+          type: 'delete'
+        }).then(res => {
+          if (res.status === 1 && res.error === 0) {
+            $('#article').val('');
+            alert('success');
+          } else {
+            alert(res.msg);
+          }
+        }, () => {
+          alert('failed');
+        });
+      });
+
+      $('#get').on('click', () => {
+        $.ajax({
+          url: '/api/article/' + $('#article').val(),
+          type: 'get'
+        }).then(res => {
+          if (res.status === 1 && res.error === 0) {
+            alert('success');
+          } else {
+            alert(res.msg);
+          }
+        }, () => {
+          alert('failed');
+        });
+      });
+
+    </script>
+  </body>
+</html>

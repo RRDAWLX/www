@@ -12,15 +12,59 @@
             border: 0;
         }
 
-        html, body {
-            width: 100%; height: 1000px;
+        html {
+            font-size: 16px;
+            height: 100%;
+            border: 5px solid black;
+        }
+
+        body {
+            width: 100%;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            background: red;
         }
     </style>
 
 </head>
 
 <body>
-    <script></script>
+    <div id="player">abc</div>
+
+    <script src="static/web-animations.js"></script>
+    <script>
+        let ele = document.querySelector('div');
+        let keyframes = [
+            {backgroundColor: '#ff00ff'},
+            {backgroundColor: '#00ff00'}
+        ];
+        let timing = {
+            duration: 1000,
+            iterations: 1,
+            direction: 'alternate'
+        };
+
+        let effect = new KeyframeEffect(ele, keyframes, timing);
+        let animation = new Animation(effect, document.timeline);
+        animation.ready.then(() => {
+            console.log('ready');
+        });
+        animation.finished.then(() => {
+            console.log('finished');
+        });
+        animation.onfinish = function() {
+            console.log('animation finished');
+            animation.finish();
+        }
+        // animation.play();
+
+        document.querySelector('div').animate(keyframes, timing).finished.then(() => {
+            console.log('finished');
+        });
+    </script>
 </body>
 
 </html>
